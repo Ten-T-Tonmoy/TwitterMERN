@@ -1,0 +1,78 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+logs/
+*.pid
+*.seed
+*.pid.lock
+
+# OS generated files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Backend
+/backend/node_modules/
+/backend/.env
+/backend/logs/
+/backend/dist/
+/backend/.cache
+
+# Frontend
+/frontend/node_modules/
+/frontend/.env
+/frontend/build/
+/frontend/dist/
+/frontend/.cache
+/frontend/coverage/
+/frontend/.eslintcache
+
+# React/Frontend specific
+*.cache
+.next/
+.vite/
+
+# MongoDB
+*.lock
+*.pem
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Test files
+jest-test-results.json
+cypress/screenshots/
+cypress/videos/
+
+# Miscellaneous
+*.bak
+*.orig
+
+# Dependency directories
+.bower_components/
+jspm_packages/
+
+# Mac system files
+.AppleDouble
+.LSOverride
