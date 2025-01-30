@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/api/auth", authroutes);
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // console.log(process.env.MONGO_URI);
 //reading env files with dotenv
 
