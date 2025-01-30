@@ -8,6 +8,7 @@ export const generateTokenAndSetCookie = (userId, res) => {
     maxAge: 15 * 24 * 60 * 60 * 100, //miliseconds
     httpOnly: true, //only http accesible
     sameSite: "strict",
-    secure: process.env.NODE_END !== "development", //true if this isnt development
+    secure: false,
+    // secure: process.env.NODE_END !== "development", //true if this isnt development
   });
 };

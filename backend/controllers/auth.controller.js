@@ -29,12 +29,13 @@ export const signUp = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedpass = await bcrypt.hash(password, salt);
 
-    const newUser = {
+    const newUser = new User({
       fullname,
       username,
       email,
       password: hashedpass,
-    };
+    });
+    //without new User mongoose funcs cant be added
 
     if (newUser) {
       generateTokenAndSetCookie(newUser._id, res);
@@ -53,18 +54,55 @@ export const signUp = async (req, res) => {
     }
   } catch (error) {
     console.error("Signing up Error Occured ", error);
-    res.send(400).json({
+    res.status(400).json({
       error: "invalid user data",
     });
   }
 };
 
-export const login = (req, res) => {
-  res.send("Look who came to log in");
+export const login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+    //?optional chaning to return undefined if null
+    const passCorrect = await bcrypt.compare(password, user?.password || "");
+    // ||"" must since it might be any of use
+    if (!user || !passCorrect) {
+      return res.status(400).json({
+        error: "invalid credentials",
+      });
+    }
+
+    generateTokenAndSetCookie(user._id, res);
+
+    res.status(201).json({
+      _id: user._id,
+      fullname: user.fullname,
+      username: user.username,
+      email: user.email,
+      follower: user.follower,
+      following: user.following,
+      profileImg: user.profileImg,
+      coverImg: user.coverImg,
+    });
+  } catch (error) {
+    console.error("Signing in Error Occured ", error);
+    return res.status(400).json({
+      error: "invalid user data",
+    });
+  }
 };
 
 export const logout = (req, res) => {
-  res.json({
-    data: "Look who did log out",
-  });
+  try {
+    res.cookie("jwt", "", { maxAge: 0 });
+    res.status(200).json({
+      message: "Logget out Done",
+    });
+  } catch (error) {
+    console.error("Signing out controller error ", error);
+    return res.status(500).json({
+      error: "Error occured while logging out",
+    });
+  }
 };
