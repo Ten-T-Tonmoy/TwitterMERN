@@ -3,13 +3,8 @@ import dotenv from "dotenv";
 import connectDb from "./db/connect.js";
 import cookieParser from "cookie-parser";
 
-
-
-
-
-import authroutes from "./routes/auth.routes.js";
-
-
+import authRoutes from "./routes/auth.routes.js";
+import userRoutes from "./routes/user.routes.js";
 
 dotenv.config();
 const app = express();
@@ -20,7 +15,7 @@ app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true }));
 // console.log(process.env.MONGO_URI);
 //reading env files with dotenv
-app.use("/api/auth", authroutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
 app.listen(PORT, () => {
