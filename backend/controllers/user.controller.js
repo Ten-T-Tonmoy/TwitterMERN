@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import Notification from "../models/notification.model.js";
 import User from "../models/user.model.js";
 
+//------------------------------Show Profile--------------------------------------
 export const userProfile = (req, res) => {
   try {
     const { username } = req.params;
@@ -20,6 +21,8 @@ export const userProfile = (req, res) => {
     });
   }
 };
+
+//------------------------------------ Follow/Unfollow -------------------------------------
 
 export const followOrUnfollow = async (req, res) => {
   try {
@@ -73,8 +76,14 @@ export const followOrUnfollow = async (req, res) => {
   }
 };
 
-export const suggestedUsers = (req, res) => {
+//-------------------------------Suggested Users --------------------------------------
+
+export const suggestedUsers = async (req, res) => {
   try {
+    const userId = req.user._id;
+    const usersFollowedByMe = await User.findById(userId).select("following");
+    //gotta learn aggregate pipelines for this shit
+    //
   } catch (error) {
     console.log("suggestedUsers error controller", error.message);
     res.status(500).json({
