@@ -2,7 +2,7 @@ import Notification from "../models/notification.model";
 import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
 
-export const allPosts = (req, res) => {
+export const allPosts = async (req, res) => {
   try {
   } catch (error) {
     console.log("allPosts Controller error occured", error);
@@ -11,8 +11,34 @@ export const allPosts = (req, res) => {
     });
   }
 };
-export const followingPosts = (req, res) => {
+
+//------------------- Following Posts -----------------------
+//own posts? misleading!
+export const followingPosts = async (req, res) => {
   try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found on db?",
+      });
+    }
+    const following = user.following;
+    //find all that included current users following ID(which is ref to user)
+    //.populate will fetch those ref users just pick posts from them
+    const postFeed = await Post.find({ user: { $in: following } })
+      .sort({
+        createdAt: -1,
+      })
+      .populate({
+        path: "user", //user field of the model be aware
+        select: "-password",
+      })
+      .populate({
+        path: "comments.user",
+        select: "-password",
+      });
+      //populating till user just to make those more accesible?!
+    res.status(200).json(postFeed);
   } catch (error) {
     console.log("followingPosts Controller error occured", error);
     res.status(500).json({
@@ -101,8 +127,34 @@ export const commentOnPost = (req, res) => {
     });
   }
 };
-export const deletePost = (req, res) => {
+
+//--------------------- Delete Post ---------------------
+
+export const deletePost = async (req, res) => {
   try {
+    //will provide id of post?
+    const targetPost = await Post.findById(req.params.id);
+
+    if (!targetPost) {
+      return res.status(404).json({
+        message: "Post not found on db?",
+      });
+    }
+    if (targetPost.user.toString() !== req.user._id.toString()) {
+      return res.status(400).json({
+        error: "Not Authorized to delete this man",
+      });
+    }
+
+    //another cloudinary shit
+    if (targetPost.img) {
+    }
+
+    await Post.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      message: "Post deleting done",
+    });
   } catch (error) {
     console.log("deletePost Controller error occured", error);
     res.status(500).json({

@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
   ],
   following: [
     {
-      type: mongoose.Schema.Types.ObjectId, //objectid 16chars?
+      type: mongoose.Schema.Types.ObjectId, 
       ref: "User",
       default: [],
     },
