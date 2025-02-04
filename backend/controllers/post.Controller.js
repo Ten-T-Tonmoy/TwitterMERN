@@ -1,9 +1,20 @@
-import Notification from "../models/notification.model";
+import Notification from "../models/notification.mode.jsl";
 import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
 
+//---------------------------- all Posts -------------------------------------
+
 export const allPosts = async (req, res) => {
   try {
+    const posts = await Post.find()
+      .sort({ createdAt: -1 })
+      .populate({ path: "user", select: "-password" })
+      .populate({ path: "comments.user", select: "-password" });
+
+    if (posts.length === 0) {
+      return res.status(200).json([]);
+    }
+    res.status(200).json(posts);
   } catch (error) {
     console.log("allPosts Controller error occured", error);
     res.status(500).json({
@@ -37,7 +48,7 @@ export const followingPosts = async (req, res) => {
         path: "comments.user",
         select: "-password",
       });
-      //populating till user just to make those more accesible?!
+    //populating till user just to make those more accesible?!
     res.status(200).json(postFeed);
   } catch (error) {
     console.log("followingPosts Controller error occured", error);
@@ -46,8 +57,34 @@ export const followingPosts = async (req, res) => {
     });
   }
 };
-export const likedPosts = (req, res) => {
+
+//----------------------------- liked posts --------------------------------------
+//id of target will be given
+export const likedPosts = async (req, res) => {
+  const targetId = req.params.id;
   try {
+    const targetUser = await User.findById(targetId);
+    if (!targetUser) {
+      return res.status(404).json({
+        error: "User not found",
+      });
+    }
+    //posts _id can be find in TargetUsers likedposts which is a id array of Posts
+    const likedPosts = await Post.find({
+      _id: { $in: targetUser.likedPosts },
+    })
+      .populate({
+        path: "user",
+        select: "-password",
+      })
+      .populate({
+        path: "comments.user",
+        select: "-password",
+      });
+
+    //
+
+    res.status(200).json(likedPosts);
   } catch (error) {
     console.log("likedPosts Controller error occured", error);
     res.status(500).json({

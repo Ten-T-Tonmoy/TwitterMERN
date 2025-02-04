@@ -1,0 +1,40 @@
+createPost – Creates a new post with text and/or an image.
+ If an image is included, it's uploaded to Cloudinary.
+  The post is then saved in the database.
+
+
+deletePost – Deletes a post if the requesting
+ user is its owner. If the post has an image,
+  it removes it from Cloudinary as well.
+
+
+
+commentOnPost – Adds a comment to a post.
+ The comment consists of the user's ID and text.
+  The updated post is saved in the database.
+
+
+likeUnlikePost – Toggles a like on a post.'
+ If the user has already liked it, the like
+  is removed; otherwise, it's added. A 
+  notification is created if the post is liked.
+
+
+getAllPosts – Fetches all posts from the 
+database, sorted by creation date (newest first).
+ It also populates the user and comment details.
+
+
+getLikedPosts – Retrieves all posts that a
+ specific user has liked by checking their
+  likedPosts field.
+
+
+
+getFollowingPosts – Fetches posts from users
+ that the requesting user follows. These posts 
+ are sorted by creation date.
+
+
+getUserPosts – Retrieves all posts made by a 
+specific user, identified by their username.
