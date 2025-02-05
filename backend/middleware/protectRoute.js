@@ -9,13 +9,13 @@ const protectRoute = async (req, res, next) => {
         error: "unauthorized token not found",
       });
     //ps small misunderestand it contains id tho
-    const decodedUserId = jwt.verify(token, process.env.JWT_SECRET);
-    if (!decodedUserId) {
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    if (!decodedToken) {
       return res.status(401).json({
         error: "unauthorized token not matched",
       });
     }
-    const decodedUser = await User.findById(decodedUserId.userId).select(
+    const decodedUser = await User.findById(decodedToken.userId).select(
       "-password"
     );
 
