@@ -1,6 +1,7 @@
 import Notification from "../models/notification.mode.jsl";
 import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
+import { v2 as cloudinary } from "cloudinary";
 
 //---------------------------- all Posts -------------------------------------
 
@@ -92,8 +93,32 @@ export const likedPosts = async (req, res) => {
     });
   }
 };
-export const userPosts = (req, res) => {
+
+//------------------------- USer Posts -----------------------
+//username provided?
+
+export const userPosts = async (req, res) => {
   try {
+    const targetUser = await User.findOne({ username: req.params.username });
+    if (!targetUser) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+    const userPosts = await (
+      await Post.find({ user: targetUser._id })
+    )
+      .sort({ createdAt: -1 }) //icymi newer first
+      .populate({
+        path: "user",
+        select: "-password",
+      })
+      .populate({
+        path: "comments.user",
+        select: "-password",
+      });
+
+    res.status(200).json(userPosts);
   } catch (error) {
     console.log("userPosts Controller error occured", error);
     res.status(500).json({
@@ -127,6 +152,8 @@ export const createPost = async (req, res) => {
     //perform cloudinary upload shit here
 
     if (img) {
+      const imgUploadResponse = await cloudinary.uploader.upload(img);
+      img = imgUploadResponse.secure_url;
     }
 
     const newPost = new Post({
@@ -146,6 +173,9 @@ export const createPost = async (req, res) => {
     });
   }
 };
+
+//--------------------------- like/unlike post -------------------------
+
 export const likeOrUnlikePost = (req, res) => {
   try {
   } catch (error) {
@@ -155,6 +185,8 @@ export const likeOrUnlikePost = (req, res) => {
     });
   }
 };
+
+//--------------------------------- Commenting ------------------------------
 export const commentOnPost = (req, res) => {
   try {
   } catch (error) {
@@ -184,7 +216,15 @@ export const deletePost = async (req, res) => {
     }
 
     //another cloudinary shit
+    //https://res.cloudinary.com/demo/image/upload/v1699346578/uploads/sample-image.jpg
+    /*
+      splits it on every / and makes an array 
+      .pop()=>gets the last ele again splits on 
+      dot and takes first element meaning the name
+    */
     if (targetPost.img) {
+      const imageId = targetPost.img.split("/").pop().split(".")[0];
+      await cloudinary.uploader.destroy(imageId);
     }
 
     await Post.findByIdAndDelete(req.params.id);
