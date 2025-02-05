@@ -1,4 +1,4 @@
-import Notification from "../models/notification.mode.jsl";
+import Notification from "../models/notification.mode.js";
 import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
 import { v2 as cloudinary } from "cloudinary";
@@ -105,9 +105,7 @@ export const userPosts = async (req, res) => {
         message: "User not found",
       });
     }
-    const userPosts = await (
-      await Post.find({ user: targetUser._id })
-    )
+    const userPosts = await Post.find({ user: targetUser._id })
       .sort({ createdAt: -1 }) //icymi newer first
       .populate({
         path: "user",
@@ -176,8 +174,55 @@ export const createPost = async (req, res) => {
 
 //--------------------------- like/unlike post -------------------------
 
-export const likeOrUnlikePost = (req, res) => {
+export const likeOrUnlikePost = async (req, res) => {
   try {
+    const likerId = req.user._id;
+    const { id: targetPostId } = req.params;
+
+    const targetPost = await Post.findById(targetPostId);
+
+    if (!targetPost) {
+      return res.status(404).json({
+        message: "Post to like not found",
+      });
+    }
+    const isLiked = targetPost.likes.includes(likerId);
+
+    //handling the liking or remove liking portion
+
+    if (isLiked) {
+      await Post.updateOne(
+        { _id: targetPostId },
+        { $pull: { likes: likerId } }
+      );
+      await User.updateOne(
+        { _id: likerId },
+        { $pull: { likedPosts: targetPostId } }
+      );
+
+      //ps targetPost isnt updated
+    } else {
+      //targetPost.likes.push(likedId) also works
+
+      await Post.updateOne(
+        { _id: targetPostId },
+        { $push: { likes: likerId } }
+      );
+      await User.updateOne(
+        { _id: likerId },
+        { $push: { likedPosts: targetPostId } }
+      );
+      const likeNotif = new Notification({
+        from: likerId,
+        to: targetPost.user,
+        type: "like",
+      });
+
+      await likeNotif.save();
+    }
+    //better than filtering fetch again
+    const updatedPost = await Post.findById(targetPostId);
+    res.status(200).json(updatedPost.likes);
   } catch (error) {
     console.log("likeOrUnlikePost Controller error occured", error);
     res.status(500).json({
@@ -187,8 +232,29 @@ export const likeOrUnlikePost = (req, res) => {
 };
 
 //--------------------------------- Commenting ------------------------------
-export const commentOnPost = (req, res) => {
+export const commentOnPost = async (req, res) => {
   try {
+    const { text } = req.body;
+    if (!text) {
+      return res.status(400).json({
+        error: "Comments cant be blank",
+      });
+    }
+    const targetPost = await Post.findById(req.params.id);
+    if (!targetPost) {
+      return res.status(404).json({
+        error: "Post Not Found",
+      });
+    }
+    //
+    const commentorId = req.user._id;
+
+    const comment = { user: commentorId, text };
+    targetPost.comments.push(comment);
+
+    await targetPost.save();
+
+    res.status(200).json(targetPost);
   } catch (error) {
     console.log("commentOnPost Controller error occured", error);
     res.status(500).json({
