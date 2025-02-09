@@ -1,7 +1,9 @@
 const CrownSvg = (props) => (
   <svg
-    viewBox="0 0 12 12"
+    viewBox="0 0.5 5 5"
     fill="none"
+    width="450px"
+    height="350px"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
