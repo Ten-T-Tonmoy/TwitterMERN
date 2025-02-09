@@ -12,9 +12,13 @@ import Rightbar from "./components/normal/Rightbar";
 
 function App() {
   return (
-    <>
-      <button className="btn btn-primary">this</button>
-    </>
+    <div className="flex max-w-6xl mx-auto">
+      <Routes>
+        <Route path="/home" element={<Homepage />} />
+        <Route path="/" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </div>
   );
 }
 
