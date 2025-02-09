@@ -1,9 +1,7 @@
-const CrownSvg = (props) => (
+const Crown2Svg = (props) => (
   <svg
     viewBox="0 0.5 5 5"
     fill="none"
-    width="450px"
-    height="450px"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
@@ -26,4 +24,4 @@ const CrownSvg = (props) => (
   </svg>
 );
 
-export default CrownSvg;
+export default Crown2Svg;
