@@ -1,4 +1,4 @@
-import Notification from "../models/notification.mode.js";
+import Notification from "../models/notification.model.js";
 import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
 import { v2 as cloudinary } from "cloudinary";
