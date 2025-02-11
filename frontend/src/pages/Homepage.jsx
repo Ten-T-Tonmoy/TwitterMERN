@@ -5,7 +5,7 @@ const Homepage = () => {
   const [type, setType] = useState("for user");
   return (
     <>
-      <div className="flex-[4_4_0] mr-auto border-r  border-gray-700 min-h-screen">
+      <div className="flex-[4_4_auto]  mr-auto border-r  border-gray-700 min-h-screen">
         {/*header */}
         <div className="flex w-full border-b border-gray-700">
           <div

@@ -46,13 +46,34 @@ function App() {
     );
   }
 
+  //ps short note for me
+  //while navigating to conditional make sure priority order is in flow
   return (
-    <div className="flex max-w-6xl mx-auto">
+    <div className="flex max-w-4xl mx-auto">
+      {authenticated && <Leftbar />}
+
       <Routes>
         <Route path="/home" element={<Homepage />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={authenticated ? <Homepage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/notifications"
+          element={
+            authenticated ? <NotificationPage /> : <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="/signup"
+          element={!authenticated ? <Signup /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/login"
+          element={!authenticated ? <Login /> : <Navigate to="/" />}
+        />
       </Routes>
+      {authenticated && <Rightbar />}
       <Toaster />
     </div>
   );
