@@ -5,7 +5,7 @@ const Homepage = () => {
   const [type, setType] = useState("for user");
   return (
     <>
-      <div className="flex-[4_4_0] mr-auto border-r border-gray-700 min-h-screen">
+      <div className="flex-[4_4_0] mr-auto border-r  border-gray-700 min-h-screen">
         {/*header */}
         <div className="flex w-full border-b border-gray-700">
           <div
@@ -20,7 +20,7 @@ const Homepage = () => {
             For you
             {type === "for user" && (
               <div
-                className="absolute bottom-0 w-10 
+                className="absolute bottom-0 w-12
             h-1 rounded-full bg-primary"
               ></div>
             )}
@@ -37,7 +37,7 @@ const Homepage = () => {
             Following
             {type === "following" && (
               <div
-                className="absolute bottom-0 w-14
+                className="absolute bottom-0 w-16
             h-1 rounded-full bg-primary"
               ></div>
             )}
