@@ -8,7 +8,11 @@ import { BsEmojiSmileFill } from "react-icons/bs";
 import { IoCloseSharp } from "react-icons/io5";
 
 const CreatePost = () => {
-  return <div>CreatePost</div>;
+  return (
+    <div>
+      <div className="avatar"></div>
+    </div>
+  );
 };
 
 export default CreatePost;

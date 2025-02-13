@@ -49,7 +49,7 @@ function App() {
   //ps short note for me
   //while navigating to conditional make sure priority order is in flow
   return (
-    <div className="flex max-w-4xl mx-auto">
+    <div className="flex max-w-[1270px] mx-auto">
       {authenticated && <Leftbar />}
 
       <Routes>
