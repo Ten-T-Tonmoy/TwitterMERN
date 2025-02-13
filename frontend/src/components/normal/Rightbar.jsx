@@ -38,12 +38,13 @@ const Rightbar = () => {
 
         {/** Trending shits */}
         <div className=" gap-2 flex  ml-8 flex-col mt-4  w-[340px] border-stone-900 border rounded-2xl">
-          <h1 className="text-[1.2rem] mt-4 text-white font-bold ml-4">
+          <h1 className="text-[1.2rem] mt-3 text-white font-bold ml-4">
             What’s happening{" "}
           </h1>
+          {/** template for hardcoded shiis */}
           <div>
             <div className="flex-col flex hover:bg-secondary/50 ">
-              <div className="flex mx-2 mt-2 flex-row justify-between">
+              <div className="flex mx-3 mt-2 flex-row justify-between">
                 <p
                   className="text-[.7rem] 
               font-[250]"
@@ -52,18 +53,117 @@ const Rightbar = () => {
                 </p>
                 <RiMoreLine className=" hover:bg-primary/30 hover:text-primary text-[1.5rem] rounded-full p-1" />
               </div>
-              <h1 className="mx-2 font-bold text-white"> #Mannat </h1>
+              <h1 className="mx-3 font-bold text-white"> #Mannat </h1>
               <h1
-                className="mx-2 text-[.8rem] 
+                className="mx-3 text-[.8rem] 
               font-[250] mb-1"
               >
                 {" "}
                 6,961 posts
               </h1>
             </div>
-            Trending in Bangladesh Security 531K posts Music · Trending Lisa
-            275K posts Trending in Bangladesh HASINA 15 YEARS OF FASCISM 2,365
-            posts
+            <div className="flex-col flex hover:bg-secondary/50 ">
+              <div className="flex mx-3 mt-2 flex-row justify-between">
+                <p
+                  className="text-[.7rem] 
+              font-[250]"
+                >
+                  Trending in Bangladesh
+                </p>
+                <RiMoreLine className=" hover:bg-primary/30 hover:text-primary text-[1.5rem] rounded-full p-1" />
+              </div>
+              <h1
+                className="mx-3 font-bold
+               text-white"
+              >
+                {" "}
+                #Security{" "}
+              </h1>
+              <h1
+                className="mx-3 text-[.8rem] 
+              font-[250] mb-1"
+              >
+                {" "}
+                531K posts
+              </h1>
+            </div>
+            <div className="flex-col flex hover:bg-secondary/50 ">
+              <div className="flex mx-3 2 flex-row justify-between">
+                <p
+                  className="text-[.7rem] 
+              font-[250]"
+                >
+                  Business & finance . Trending
+                </p>
+                <RiMoreLine className=" hover:bg-primary/30 hover:text-primary text-[1.5rem] rounded-full p-1" />
+              </div>
+              <h1
+                className="mx-3 font-bold
+               text-white"
+              >
+                {" "}
+                #forextrading{" "}
+              </h1>
+              <h1
+                className="mx-3 text-[.8rem] 
+              font-[250] mb-1"
+              >
+                {" "}
+                1,081 posts
+              </h1>
+            </div>
+            <div className="flex-col flex hover:bg-secondary/50 ">
+              <div className="flex mx-3 mt-2 flex-row justify-between">
+                <p
+                  className="text-[.7rem] 
+              font-[250]"
+                >
+                  Music · Trending
+                </p>
+                <RiMoreLine className=" hover:bg-primary/30 hover:text-primary text-[1.5rem] rounded-full p-1" />
+              </div>
+              <h1
+                className="mx-3 font-bold
+               text-white"
+              >
+                {" "}
+                #Lisa{" "}
+              </h1>
+              <h1
+                className="mx-3 text-[.8rem] 
+              font-[250] mb-1"
+              >
+                {" "}
+                293K posts
+              </h1>
+            </div>
+            <div className="flex-col flex hover:bg-secondary/50 ">
+              <div className="flex mx-3 mt-2 flex-row justify-between">
+                <p
+                  className="text-[.7rem] 
+              font-[250]"
+                >
+                  Genz · Trending
+                </p>
+                <RiMoreLine className=" hover:bg-primary/30 hover:text-primary text-[1.5rem] rounded-full p-1" />
+              </div>
+              <h1
+                className="mx-3 font-bold
+               text-white"
+              >
+                {" "}
+                #YouthRevolt{" "}
+              </h1>
+              <h1
+                className="mx-3 text-[.8rem] 
+              font-[250] mb-1"
+              >
+                {" "}
+                214K posts
+              </h1>
+            </div>
+
+            {/** End of hardCoding */}
           </div>
         </div>
       </div>
