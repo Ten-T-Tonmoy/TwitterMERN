@@ -9,9 +9,9 @@ const Rightbar = () => {
   return (
     <div className="w-64 mr-[80px]">
       {/*  search Part */}
-      <div className="flex flex-col justify-center">
+      <div className="fixed h-14 bg-black">
         <label
-          className="input ml-8 mt-2 h-9 font-extralight w-[340px] rounded-full input-bordered 
+          className="input ml-8 mt-2 h-9  font-extralight w-[340px] rounded-full input-bordered 
         flex items-center gap-2"
         >
           <IoSearchSharp className="font-extralight   opacity-60" />
@@ -21,7 +21,8 @@ const Rightbar = () => {
             placeholder="Search"
           />
         </label>
-
+      </div>
+      <div className="flex mt-12 flex-col justify-center">
         {/** get premium */}
         <div className="p-3 gap-2 flex  ml-8 flex-col mt-4  w-[340px] border-stone-900 border rounded-2xl">
           <h1 className="text-[1.1rem] text-white  font-bold left-0 ">
@@ -37,12 +38,12 @@ const Rightbar = () => {
         </div>
 
         {/** Trending shits */}
-        <div className=" gap-2 flex  ml-8 flex-col mt-4  w-[340px] border-stone-900 border rounded-2xl">
+        <div className=" gap-2 flex overflow-hidden ml-8 flex-col mt-4  w-[340px] border-stone-900 border rounded-2xl">
           <h1 className="text-[1.2rem] mt-3 text-white font-bold ml-4">
             What’s happening{" "}
           </h1>
           {/** template for hardcoded shiis */}
-          <div>
+          <div className="cursor-pointer">
             <div className="flex-col flex hover:bg-secondary/50 ">
               <div className="flex mx-3 mt-2 flex-row justify-between">
                 <p
@@ -161,6 +162,9 @@ const Rightbar = () => {
                 {" "}
                 214K posts
               </h1>
+            </div>
+            <div className="hover:bg-secondary/50  cursor-pointer text-primary">
+              <div className="p-3 font-[200]">Show more</div>
             </div>
 
             {/** End of hardCoding */}

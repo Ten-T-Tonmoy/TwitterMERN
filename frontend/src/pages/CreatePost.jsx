@@ -9,9 +9,8 @@ import { IoCloseSharp } from "react-icons/io5";
 
 const CreatePost = () => {
   return (
-    <div>
-      <div className="avatar"></div>
-    </div>
+    <div 
+    ></div>
   );
 };
 
