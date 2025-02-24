@@ -2,7 +2,7 @@ export const POSTS = [
   {
     _id: "101",
     text: "Just started learning Rust! Excited for this journey. 🦀",
-    img: "",
+    img: "/assets/Posts/books.png",
     user: {
       username: "alex99",
       profileImg: "",
@@ -13,7 +13,8 @@ export const POSTS = [
   {
     _id: "102",
     text: "Today's sunset was absolutely breathtaking! 🌅",
-    img: "",
+    img: "/assets/Posts/daniel.png",
+
     user: {
       username: "sophia_joy",
       profileImg: "",
@@ -24,7 +25,8 @@ export const POSTS = [
   {
     _id: "103",
     text: "What’s your favorite programming language and why? 🤔",
-    img: "",
+    img: "/assets/Posts/wonka.png",
+
     user: {
       username: "dev_master",
       profileImg: "",
@@ -35,7 +37,8 @@ export const POSTS = [
   {
     _id: "104",
     text: "Just deployed my first web app! 🚀 #ProudMoment",
-    img: "",
+    img: "/assets/Posts/scott.png",
+
     user: {
       username: "lucas_coder",
       profileImg: "",
@@ -53,7 +56,8 @@ export const POSTS = [
   {
     _id: "105",
     text: "Exploring Machine Learning with Python! Any good resources? 🤖",
-    img: "",
+    img: "/assets/Posts/go.png",
+
     user: {
       username: "ml_enthusiast",
       profileImg: "",
@@ -64,7 +68,8 @@ export const POSTS = [
   {
     _id: "106",
     text: "Starting my journey with OpenGL, wish me luck! 🎨",
-    img: "",
+    img: "/assets/Posts/scott.png",
+
     user: {
       username: "graphics_wiz",
       profileImg: "",
@@ -75,7 +80,8 @@ export const POSTS = [
   {
     _id: "107",
     text: "Built a Discord bot for automation, super fun! 🤖",
-    img: "",
+    img: "/assets/Posts/pinkish.png",
+
     user: {
       username: "bot_creator",
       profileImg: "",
