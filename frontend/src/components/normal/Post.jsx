@@ -20,7 +20,7 @@ const Post = () => {
         className="flex  gap-2 items-start p-4 border-b
    border-gray-700"
       >
-        <div>
+        <div className="flex gap-2 items-start p-4 border-b border-gray-700">
           {/** avatar later */}
           <Link></Link>
         </div>

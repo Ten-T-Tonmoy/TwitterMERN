@@ -14,6 +14,8 @@ import { MdMailOutline } from "react-icons/md";
 import { BsPeopleFill } from "react-icons/bs";
 import { CgMoreO } from "react-icons/cg";
 
+import ProfileSection from "../../pages/ProfileSec";
+
 const Leftbar = () => {
   const queryClient = useQueryClient();
 
@@ -49,8 +51,8 @@ const Leftbar = () => {
         className="sticky md:justify-start m-0 p-0 top-0 left-0 h-screen justify-start
     flex flex-col border-r border-gray-700  md:w-full "
       >
-        <div className="xl:mr-[80px]">
-          <Link to="/" className="pl-4 pt-2 flex  md:justify-start">
+        <div className="xl:mr-[80px] ">
+          <Link to="/" className="pl-2 pt-2 flex  md:justify-start">
             <Crown2Svg className="px-2  w-12 h-12 rounded-full hover:bg-stone-900" />
           </Link>
           <ul className="flex flex-col gap-2 mt-2">
@@ -140,25 +142,41 @@ const Leftbar = () => {
               </Link>
             </li>
 
-            <button className="btn-md bg-white rounded-full text-black font-bold">
-              Post
-            </button>
+            <div className=" my-4">
+              <button
+                className="w-full bg-primary  text-white font-bold p-4 scale-90 md:px-3 md:py-3 md:scale-100
+              rounded-full hover:bg-blue-600 transition-colors duration-200"
+              >
+                <span className="hidden md:inline">Post</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="md:hidden mx-auto"
+                >
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </button>
+            </div>
           </ul>
 
           {authenticated && (
-            <Link
-              to={`/profile/${authenticated?.username}`}
-              className="mt-auto mb-10 flex gap-2 items-start 
-            transition-all duration-300 hover:bg-stone-900 py-2 px-4 rounded-full"
-            >
-              <div className="avatar hidden md:inline-flex">
-                <div className="hidden md:block">
-                  <img
-                    src={
-                      authenticated?.profileImg /** ||"/avatar-placeholder.png"*/
-                    }
-                  />
-                </div>
+            <Link to={`/profile/${authenticated?.username}`}>
+              {/* Profile Section */}
+              <div className="mt-auto mb-4 px-3">
+                <ProfileSection
+                  user={{
+                    name: authenticated?.username,
+                    username: "@johndoe",
+                    avatar: "/api/placeholder/40/40",
+                  }}
+                />
               </div>
             </Link>
           )}
