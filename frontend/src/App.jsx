@@ -18,7 +18,7 @@ import Rightbar from "./components/normal/Rightbar";
 function App() {
   //
   const { data: authenticated, isLoading } = useQuery({
-    queryKey: ["authUser"],
+    queryKey: ["authUser"], // use this query key to get the user bruh?
     queryFn: async () => {
       try {
         const res = await axios.get("/api/auth/me");

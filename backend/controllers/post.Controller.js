@@ -162,6 +162,7 @@ export const createPost = async (req, res) => {
 
     await newPost.save();
     res.status(201).json({
+      success: true,
       newPost,
     });
   } catch (error) {
