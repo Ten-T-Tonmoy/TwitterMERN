@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Post from "../components/normal/Post";
 import ProfileSection from "./ProfileSec";
+import CreatePost from "./CreatePost";
+
 const Homepage = () => {
   const [type, setType] = useState("for user");
 
@@ -135,7 +137,8 @@ const Homepage = () => {
             user={{
               name: "John Doe",
               username: "@johndoe",
-              avatar: "/api/placeholder/40/40",
+              avatar:
+                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
             }}
           />
         </div>
@@ -190,6 +193,7 @@ const Homepage = () => {
                 )}
               </div>
             </div>
+            {/* feed sections */}
             <Post />
           </div>
         </div>

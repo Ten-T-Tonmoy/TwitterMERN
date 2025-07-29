@@ -1,7 +1,7 @@
-import React from "react";
 import { useState } from "react";
 
-import Post from "../components/normal/Post";
+import Post from "./Feed/Post";
+import CreatePost from "./CreatePost";
 
 const Homepage = () => {
   const [type, setType] = useState("for user");
@@ -63,6 +63,8 @@ const Homepage = () => {
               )}
             </div>
           </div>
+          {/* profile section */}
+          <CreatePost />
           <Post />
         </div>
       </div>

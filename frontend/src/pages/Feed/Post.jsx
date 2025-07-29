@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import LoadingSpin from "./LoadingSpin";
+import LoadingSpin from "../../components/normal/LoadingSpin";
 
 const Post = () => {
   const [comment, setComment] = useState("");
