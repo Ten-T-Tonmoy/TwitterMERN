@@ -106,11 +106,11 @@ const CreatePost = () => {
                 setImg(null);
                 imgRef.current.value = null;
               }}
-              className="p-2 rounded-full text-[40px] bg-gray-900 hover:bg-opacity-90 fixed 
+              className="p-2 cursor-pointer rounded-full text-[40px] bg-gray-900 hover:bg-opacity-90 fixed 
             left-19 "
             />
             <img
-              className="w-[90%] rounded-2xl"
+              className="max-w-[90%] max-h-60 rounded-2xl"
               src={img}
               alt="photo chosen to upload"
             ></img>

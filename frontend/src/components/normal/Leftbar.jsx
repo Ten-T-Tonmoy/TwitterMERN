@@ -13,6 +13,7 @@ import { BiLogOut } from "react-icons/bi";
 import { MdMailOutline } from "react-icons/md";
 import { BsPeopleFill } from "react-icons/bs";
 import { CgMoreO } from "react-icons/cg";
+import { FaFeatherAlt } from "react-icons/fa";
 
 import ProfileSection from "../../pages/ProfileSec";
 
@@ -46,7 +47,7 @@ const Leftbar = () => {
   //damn gonna do the same fetchings?
 
   return (
-    <div className="md:flex-[2_2_0]   lg:w-96 max-w-52 ">
+    <div className="md:flex-[2_2_0] lg:w-96 max-w-52 ">
       <div
         className="sticky md:justify-start m-0 p-0 top-0 left-0 h-screen justify-start
     flex flex-col border-r border-gray-700  md:w-full "
@@ -142,33 +143,24 @@ const Leftbar = () => {
               </Link>
             </li>
 
-            <div className=" my-4">
+            <div className="mx-auto md:w-full my-4">
               <button
-                className="w-full bg-primary  text-white font-bold p-4 scale-90 md:px-3 md:py-3 md:scale-100
+                className="w-fit md:w-full bg-primary  text-white font-bold p-3
+                md:px-3 md:py-3
               rounded-full hover:bg-blue-600 transition-colors duration-200"
               >
                 <span className="hidden md:inline">Post</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="md:hidden mx-auto"
-                >
-                  <path d="M12 5v14M5 12h14" />
-                </svg>
+                <FaFeatherAlt className=" md:hidden text-[1.6rem]" />
               </button>
             </div>
           </ul>
 
           {authenticated && (
-            <Link to={`/profile/${authenticated?.username}`}>
-              {/* Profile Section */}
+            <Link
+              className="inline-block mt-28"
+              to={`/profile/${authenticated?.username}`}
+            >
+              {/* profile section */}
               <div className="mt-auto mb-4 px-3">
                 <ProfileSection
                   user={{

@@ -1,16 +1,20 @@
 import { useState } from "react";
 
-import Post from "./Feed/Post";
+import Posts from "./Feed/Posts";
 import CreatePost from "./CreatePost";
 
 const Homepage = () => {
-  const [type, setType] = useState("for user");
+  const [type, setType] = useState("foruser");
   return (
     <>
-      <div className="flex-[4_4_auto]  mr-auto border-r  border-gray-700 min-h-screen">
-        {/*header */}
-        <div className="xl:fixed xl:w-[609px] bg-opacity-50 backdrop-blur-md z-10">
-          <div className="flex w-full border-b border-gray-700">
+      <div className="flex-[4_4_auto] relative mr-auto border-r  border-gray-700 min-h-screen">
+        {/*header topbar? */}
+        <div className="w-full border-r border-gray-700 ">
+          {/* actual navBar  */}
+          <div
+            className="flex sticky top-0 bg-opacity-50 backdrop-blur-md
+          bg-black/50 z-10 w-full border-b  border-gray-700"
+          >
             <div
               className={`flex justify-center flex-1 p-3 hover:bg-secondary transition 
           cursor-pointer  relative text-[.9rem] duration-300 ${
@@ -18,10 +22,10 @@ const Homepage = () => {
               ? "font-bold transition ease-in-out duration-300"
               : ""
           }`}
-              onClick={() => setType("for user")}
+              onClick={() => setType("foruser")}
             >
               For you
-              {type === "for user" && (
+              {type === "foruser" && (
                 <div
                   className="absolute bottom-0 w-12
             h-1 rounded-full bg-primary"
@@ -52,10 +56,10 @@ const Homepage = () => {
                   ? "font-bold transition ease-in-out duration-300"
                   : ""
               }`}
-              onClick={() => setType("Random Facts")}
+              onClick={() => setType("allposts")}
             >
-              Random Facts
-              {type === "Random Facts" && (
+              All Posts
+              {type === "allposts" && (
                 <div
                   className="absolute bottom-0 w-16
             h-1 rounded-full bg-primary"
@@ -63,9 +67,11 @@ const Homepage = () => {
               )}
             </div>
           </div>
-          {/* profile section */}
-          <CreatePost />
-          <Post />
+          {/* newsFeed section */}
+          <div className="overflow-y-scroll h-full">
+            <CreatePost />
+            <Posts postType={type} />
+          </div>
         </div>
       </div>
     </>
