@@ -7,7 +7,7 @@ const Homepage = () => {
   const [type, setType] = useState("foruser");
   return (
     <>
-      <div className="flex-[4_4_auto] relative  mr-auto border-r  border-gray-700 min-h-screen">
+      <div className="flex-[4_4_auto] relative overflow-x-hidden  mr-auto border-r w-full  border-gray-700 min-h-screen">
         {/*header topbar? */}
         <div className="w-full border-r border-gray-700 ">
           {/* actual navBar  */}
