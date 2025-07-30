@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
+import { MdDoNotDisturbAlt } from "react-icons/md";
+import PostCard from "./Post";
+
 /**
  * foruser
  * following
  * allposts
+ *
+ * username is for profile based posts?
  */
 const Posts = ({ feedtype, username, userId }) => {
   const postEndpoint = () => {
@@ -39,16 +44,38 @@ const Posts = ({ feedtype, username, userId }) => {
   const {
     data: posts,
     isloading,
+    isRefetching,
     refetch,
   } = useQuery({
     queryKey: ["posts"],
     queryFn: getPostsFn,
   });
 
+  useEffect(() => {
+    refetch();
+  }, [feedtype, refetch, username]);
 
-  
+  return (
+    <>
+      {(isloading || isRefetching) && (
+        <div className="flex flex-col justify-center"></div>
+      )}
+      {!isloading && !isRefetching && posts?.length === 0 && (
+        <p className="text-center my-4 text-white/70 ">
+          <MdDoNotDisturbAlt className="text-center my-2 text-white/50 w-full text-4xl" />
+          Currently unavailable!
+        </p>
+      )}
 
-  return <div>Posts</div>;
+      {!isloading && !isRefetching && posts && (
+        <div>
+          {posts.map((post) => (
+            <PostCard key={post._id} post={post} />
+          ))}
+        </div>
+      )}
+    </>
+  );
 };
 
 export default Posts;

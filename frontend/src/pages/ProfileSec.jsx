@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import userDefaultImage from "../assets/images/user.png";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const ProfileSection = ({
   user = {
-    name: "John Doe",
+    fullname: "John Doe",
     username: "@johndoe",
-    avatar: "/api/placeholder/40/40",
+    profileImg: "/api/placeholder/40/40",
   },
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,9 +46,10 @@ const ProfileSection = ({
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <img
-          src={user.avatar}
+          src={user.profileImg ? user.profileImg : userDefaultImage}
           alt="Profile"
-          className="w-10 h-10 rounded-full object-cover"
+          className={` w-14 rounded-full object-cover
+            ${user.profileImg ? "" : "bg-white"}`}
         />
         <div className="ml-3 hidden md:block">
           <p className="font-bold text-sm">{user.name}</p>

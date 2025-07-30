@@ -7,7 +7,7 @@ const Homepage = () => {
   const [type, setType] = useState("foruser");
   return (
     <>
-      <div className="flex-[4_4_auto] relative mr-auto border-r  border-gray-700 min-h-screen">
+      <div className="flex-[4_4_auto] relative  mr-auto border-r  border-gray-700 min-h-screen">
         {/*header topbar? */}
         <div className="w-full border-r border-gray-700 ">
           {/* actual navBar  */}
@@ -18,7 +18,7 @@ const Homepage = () => {
             <div
               className={`flex justify-center flex-1 p-3 hover:bg-secondary transition 
           cursor-pointer  relative text-[.9rem] duration-300 ${
-            type === "for user"
+            type === "foruser"
               ? "font-bold transition ease-in-out duration-300"
               : ""
           }`}
@@ -68,7 +68,7 @@ const Homepage = () => {
             </div>
           </div>
           {/* newsFeed section */}
-          <div className="overflow-y-scroll h-full">
+          <div className="overflow-y-scroll w-full hide-scrollbar h-full">
             <CreatePost />
             <Posts postType={type} />
           </div>
