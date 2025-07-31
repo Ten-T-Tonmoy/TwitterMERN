@@ -46,7 +46,8 @@ const CreatePost = () => {
     }
   };
 
-  const { data: authUser } = useQuery({ queryKey: ["authUser"] });
+  const { data: authUser } = useQuery({ queryKey: ["authUser"] }); //authUser.data
+  console.log("this is authUser!", authUser);
   const queryClient = useQueryClient(); //to use global state
 
   const {

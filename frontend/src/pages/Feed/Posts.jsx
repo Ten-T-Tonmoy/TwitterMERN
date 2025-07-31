@@ -12,7 +12,7 @@ import LoadingSpin from "../../components/normal/LoadingSpin";
  *
  * username is for profile based posts?
  */
-const Posts = ({ feedtype, username, userId }) => {
+const Posts = ({ feedtype }) => {
   const isDev = import.meta.env.MODE === "development";
 
   const postEndpoint = () => {
@@ -26,7 +26,7 @@ const Posts = ({ feedtype, username, userId }) => {
           ? "/api/posts/following"
           : `${import.meta.env.VITE_API_BASE_URL}/api/posts/following`;
       case "allposts":
-        return `/api/posts/user/${username}`;
+        return `/api/posts/user/`;
       default:
         return isDev
           ? "/api/posts/all"
@@ -38,7 +38,10 @@ const Posts = ({ feedtype, username, userId }) => {
 
   const getPostsFn = async () => {
     try {
-      const res = await fetch(URL);
+      const res = await fetch(URL, {
+        method: "GET",
+        credentials: "include",
+      });
       if (!res.ok) {
         throw new Error(data.error || "Fetching feed post went wrong");
       }
@@ -60,9 +63,11 @@ const Posts = ({ feedtype, username, userId }) => {
     queryFn: getPostsFn,
   });
 
+  console.log("This is post fn", posts);
+
   useEffect(() => {
     refetch();
-  }, [feedtype, refetch, username]);
+  }, [feedtype, refetch]); //username!?
 
   return (
     <>

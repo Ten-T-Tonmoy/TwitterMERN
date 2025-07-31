@@ -34,7 +34,10 @@ const PostCard = ({ post }) => {
 
   const deletePostFn = async () => {
     try {
-      const res = await fetch(`api/posts/${post._id}`, { method: "DELETE" });
+      const res = await fetch(`api/posts/${post._id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.Error || "error occured while deleting");

@@ -28,7 +28,8 @@ const Leftbar = () => {
         const res = await axios.post(
           isDev
             ? "/api/auth/logout"
-            : `${import.meta.env.VITE_API_BASE_URL}/api/auth/logout`
+            : `${import.meta.env.VITE_API_BASE_URL}/api/auth/logout`,
+          { withCredentials: true } //only axios?
         );
         if (res.status !== 200) {
           throw new Error(res.error || "Shit happened while trying to logOut");
@@ -49,7 +50,7 @@ const Leftbar = () => {
   });
 
   const { data: authenticated } = useQuery({ queryKey: ["authUser"] });
-  // console.log("This is for leftbar", authenticated);
+  console.log("This is for leftbar", authenticated);
   //damn gonna do the same fetchings?
 
   return (
@@ -140,7 +141,7 @@ const Leftbar = () => {
             {/** USer Icon */}
             <li className="flex justify-center md:justify-start">
               <Link
-                to={`/profile/${authenticated?.data.username}`}
+                to={`/profile/${authenticated?.username}`}
                 className="flex gap-2 
             items-center hover:bg-stone-900 transition-all rounded-full
             duration-300 py-2 pl-2 pr-2  cursor-pointer "
@@ -173,9 +174,9 @@ const Leftbar = () => {
                 <ProfileSection
                   logout={logout}
                   user={{
-                    fullname: authenticated.data.fullname,
-                    username: authenticated.data.username,
-                    profileImg: authenticated.data.profileImg,
+                    fullname: authenticated.fullname,
+                    username: authenticated.username,
+                    profileImg: authenticated.profileImg,
                   }}
                 />
               </div>

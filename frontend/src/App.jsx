@@ -23,20 +23,26 @@ function App() {
     queryKey: ["authUser"], // use this query key to get the user bruh?
     queryFn: async () => {
       try {
-        const res = await axios.get(
+        const res = await fetch(
           isDev
             ? "/api/auth/me"
             : `${import.meta.env.VITE_API_BASE_URL}/api/auth/me`,
-          { withCredentials: true }
+          {
+            method: "GET",
+            credentials: "include",
+          }
         );
-        // axios response status check
-        if (res.status !== 200) {
+
+        if (!res.ok) {
+          const data = await res.json();
           throw new Error(
-            res.error || "Shit happened while trying to check profile"
+            data.error || "Shit happened while trying to check profile"
           );
         }
-        console.log("Authenticated user : ", res);
-        return res;
+
+        const data = await res.json();
+        console.log("Authenticated user : ", data);
+        return data;
       } catch (error) {
         // optional chaining bruh
         throw new Error(error.message || error.response?.data?.message);

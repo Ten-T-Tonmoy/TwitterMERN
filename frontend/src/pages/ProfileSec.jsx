@@ -41,7 +41,7 @@ const ProfileSection = ({
     setTimeout(() => {
       window.location.reload();
       //instant hit suks
-    }, 200);
+    }, 400);
   };
 
   return (
