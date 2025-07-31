@@ -6,7 +6,7 @@ export const generateTokenAndSetCookie = (userId, res) => {
     expiresIn: "15d",
   });
   res.cookie("jwt", token, {
-    maxAge: 15 * 24 * 60 * 60 * 1009, //miliseconds
+    maxAge: 15 * 24 * 60 * 60 * 1000, //miliseconds
     httpOnly: true, //only http accesible
     sameSite: "none", //fk this it took me hours to figure out what went wrong on cors
     secure: true,

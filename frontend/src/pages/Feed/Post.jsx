@@ -12,8 +12,19 @@ import { MdOutlineFileUpload } from "react-icons/md"; //share
 import { FaHeart } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa";
 
+import { IoIosMore } from "react-icons/io";
+
 import { RiVerifiedBadgeFill } from "react-icons/ri"; //blue
 import { MdVerified } from "react-icons/md"; //gold
+
+//pop up more menu
+import { RiUserFollowLine } from "react-icons/ri";
+import { MdReportGmailerrorred } from "react-icons/md";
+import { AiOutlineStop } from "react-icons/ai";
+import { IoMdClose } from "react-icons/io";
+import { MdDeleteOutline } from "react-icons/md";
+
+import { FaCheck } from "react-icons/fa6";
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -31,6 +42,10 @@ const PostCard = ({ post }) => {
   const alreadyLiked = post.likes.includes(authUser._id);
   const ownPost = authUser._id === post.user._id;
   const structuredDate = formatDate(post.createdAt);
+
+  //more option and popup
+  const [moreOpen, setMoreOpen] = useState(false);
+  const [surePopUpOpen, setSurePopUpOpen] = useState(false);
 
   const deletePostFn = async () => {
     try {
@@ -56,12 +71,53 @@ const PostCard = ({ post }) => {
     },
   });
 
+  const handleDeletePost = () => {
+    setSurePopUpOpen(true);
+    deletePost();
+    setMoreOpen(false);
+    setSurePopUpOpen(false);
+  };
+
   return (
     <>
       <div
         className="flex w-full gap-2 items-start p-4 pb-1 border-b
    border-gray-700"
       >
+        {surePopUpOpen && (
+          <div
+            className="fixed top-0 left-0 h-screen
+           w-screen bg-black  bg-opacity-[90%] z-[100]"
+          >
+            <div
+              className="fixed top-1/2 left-[25vw] md:left-[42vw] w-72 bg-black border
+            border-gray-700 rounded-xl shadow-lg font-bold text-[1rem] py-2 z-50 "
+            >
+              <p className=" text-white text-center py-2">Are you sure ?</p>
+              <div className="flex items-center justify-center gap-2 py-2">
+                <button
+                  className="btn rounded-full text-primary border-primary
+                w-[45%] hover:text-white hover:bg-primary/30 flex items-center justify-center gap-2 "
+                  onClick={handleDeletePost}
+                >
+                  <FaCheck className="text-[1.1rem]" />
+                  Yes
+                </button>
+                <button
+                  onClick={() => setSurePopUpOpen(false)}
+                  className="btn rounded-full text-red-400 border-red-400
+                    w-[45%] hover:text-red-400 hover:bg-red-400/30 flex items-center justify-center gap-2"
+                >
+                  <IoMdClose className="text-[1.1rem]" />
+                  No
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* main post part >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
+
         <div
           className="flex gap-2 items-start h-10 w-10 rounded-full 
           bg-primary border-gray-700"
@@ -78,17 +134,70 @@ const PostCard = ({ post }) => {
          *     | icons
          *     |border-b
          */}
-        <div className="w-[85%] sm:w-[90%]">
-          <div className="flex items-center ">
+        <div className="w-[85%] sm:w-[90%] ">
+          <div className="flex items-center w-full relative ">
             <p className="font-bold ">{post.user.fullname}</p>
             <RiVerifiedBadgeFill className="text-primary text-lg mx-1" />
-            <p className="text-white/60 font-light">
+            <p className="text-white/60 text-ellipsis w-[20%] font-light line-clamp-1">
               {"@" + post.user.username}
             </p>
             <p className="text-white/60 mx-1">
               <span className="font-extrabold">· </span>
               {structuredDate}
             </p>
+            <IoIosMore
+              onClick={() => setMoreOpen(!moreOpen)}
+              className={`ml-auto p-2 text-[2rem] rounded-full 
+            hover:text-primary hover:bg-primary/30 cursor-pointer
+            ${moreOpen ? "bg-primary/30 text-primary " : ""}
+            `}
+            />
+            {moreOpen && (
+              <div
+                className="absolute top-6 right-0 w-64 bg-black border
+                       border-gray-700 rounded-xl shadow-lg font-bold text-[.9rem] py-2 z-50 "
+              >
+                <button
+                  className="w-full text-left px-4 py-3 cursor-pointer flex items-center justify-between
+                           hover:bg-secondary  transition-colors duration-200"
+                >
+                  Follow User+
+                  <RiUserFollowLine className="text-[1.5rem]" />
+                </button>
+
+                <button
+                  className="w-full text-left px-4 py-3 hover:bg-secondary
+                          cursor-pointer transition-colors duration-200 flex items-center justify-between"
+                  onClick={() => setMoreOpen(!moreOpen)}
+                >
+                  Close
+                  <IoMdClose className="text-[1.5rem]" />
+                </button>
+
+                <button
+                  className="w-full text-left px-4 py-3 text-red-500 flex items-center justify-between
+                          cursor-pointer hover:bg-secondary transition-colors duration-200"
+                >
+                  Block {"@" + post.user.username}
+                  <AiOutlineStop className="text-[1.4rem]" />
+                </button>
+                <button
+                  className="w-full text-left px-4 py-3 text-red-500 flex items-center justify-between
+                          cursor-pointer hover:bg-secondary transition-colors duration-200"
+                >
+                  Report Post
+                  <MdReportGmailerrorred className="text-[1.4rem]" />
+                </button>
+                <button
+                  className="w-full text-left px-4 py-3 text-red-500 flex items-center justify-between
+                          cursor-pointer hover:bg-secondary transition-colors duration-200"
+                  onClick={() => setSurePopUpOpen(true)}
+                >
+                  Delete post
+                  <MdDeleteOutline className="text-[1.4rem]" />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* content */}

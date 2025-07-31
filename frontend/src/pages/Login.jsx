@@ -150,7 +150,7 @@ const Login = () => {
         className="text-gray-400/50  justify-center flex flex-col md:flex-row md:gap-1
             text-[.9rem] items-center"
       >
-        Deisgined inspired from X & programmed by
+        Desgin inspired from X & programmed by
         <span className="text-primary font-bold ">FH Tonmoy </span>
         <p className="flex items-center gap-1">
           ©2025 . XCROWN <LuCrown className="text-white inline" />

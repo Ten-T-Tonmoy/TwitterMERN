@@ -29,6 +29,7 @@ const CreatePost = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify({ text, img }), //name same mind it
         }
       );
@@ -90,7 +91,7 @@ const CreatePost = () => {
        *  img gif groak emoji location    post
        */}
       <div className="w-10  p-3 h-10 rounded-full bg-primary "> </div>
-      <form className="w-[90%] " onSubmit={handleSubmit}>
+      <form className="w-[83%] sm:w-[90%] " onSubmit={handleSubmit}>
         <div
           className="flex justify-start items-center text-primary border-white/30
         border w-fit rounded-xl px-3 font-bold hover:bg-blue-400/10 cursor-pointer"
@@ -118,7 +119,7 @@ const CreatePost = () => {
             left-19 "
             />
             <img
-              className="max-w-[90%] max-h-60 rounded-2xl"
+              className="max-w-[83%] sm:max-w-[90%] max-h-60 rounded-2xl"
               src={img}
               alt="photo chosen to upload"
             ></img>

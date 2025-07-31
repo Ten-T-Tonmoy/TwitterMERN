@@ -34,14 +34,15 @@ const ProfileSection = ({
     };
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     console.log("Logging out...");
-    logout();
+    await logout();
     setIsMenuOpen(false);
+    navigate("/login");
     setTimeout(() => {
       window.location.reload();
       //instant hit suks
-    }, 400);
+    }, 800);
   };
 
   return (

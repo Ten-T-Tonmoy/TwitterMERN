@@ -25,14 +25,19 @@ const Leftbar = () => {
   const { mutate: logout } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await axios.post(
+        const res = await fetch(
           isDev
             ? "/api/auth/logout"
             : `${import.meta.env.VITE_API_BASE_URL}/api/auth/logout`,
-          { withCredentials: true } //only axios?
+          {
+            method: "POST",
+            credentials: "include", // cookies must
+          }
         );
-        if (res.status !== 200) {
-          throw new Error(res.error || "Shit happened while trying to logOut");
+
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.message || "Logout failed");
         }
       } catch (error) {
         // optional chaining bruh
@@ -57,14 +62,17 @@ const Leftbar = () => {
     <div className="md:flex-[2_2_0] max-w-[13%] lg:w-96 sm:max-w-80  relative z-10">
       <div
         className="sticky md:justify-start m-0 p-0 top-0 left-0 h-screen justify-start
-    flex flex-col border-r border-gray-700  md:w-full "
+    flex flex-col border-r border-gray-700   md:w-full "
       >
-        <div className="xl:mr-[80px] ">
+        <div className="xl:mr-[80px]  ">
           <Link to="/" className="sm:pl-2  py-3 flex  md:justify-start">
             {/* <Crown2Svg className="px-2  w-12 h-12 rounded-full hover:bg-stone-900" /> */}
             <LuCrown className=" mx-auto w-9 h-9 md:scale-125 md:mx-0" />
           </Link>
-          <ul className="flex flex-col w-full gap-2 mt-2">
+
+          {/* the goddamn icons >>>>>>>>>>>>> */}
+
+          <ul className="flex flex-col w-full justify-between h-[85vh] mt-2">
             {/** home icon */}
             <li className="flex justify-center md:justify-start ">
               <Link
@@ -153,7 +161,7 @@ const Leftbar = () => {
 
             <div className="mx-auto md:w-full my-4">
               <button
-                className="w-fit md:w-full bg-primary  text-white font-bold p-3
+                className="w-fit md:w-full bg-primary  text-white font-bold p-2 sm:p-3
                 md:px-3 md:py-3
               rounded-full hover:bg-blue-600 transition-colors duration-200"
               >
@@ -161,27 +169,27 @@ const Leftbar = () => {
                 <FaFeatherAlt className=" md:hidden text-[1.6rem]" />
               </button>
             </div>
-          </ul>
 
-          {/* profilesec */}
-          {authenticated && (
-            <Link
-              className="inline-block mt-16"
-              // to={`/profile/${authenticated?.username}`}
-            >
-              {/* profile section */}
-              <div className="mt-auto mb-4 px-2 ">
-                <ProfileSection
-                  logout={logout}
-                  user={{
-                    fullname: authenticated.fullname,
-                    username: authenticated.username,
-                    profileImg: authenticated.profileImg,
-                  }}
-                />
-              </div>
-            </Link>
-          )}
+            {/* profilesec >>>>>>>>>>>>>>>>>>>>>>>>>> */}
+            {authenticated && (
+              <Link
+                className="inline-block "
+                // to={`/profile/${authenticated?.username}`}
+              >
+                {/* profile section */}
+                <div className=" px-1 sm:px-2 ">
+                  <ProfileSection
+                    logout={logout}
+                    user={{
+                      fullname: authenticated.fullname,
+                      username: authenticated.username,
+                      profileImg: authenticated.profileImg,
+                    }}
+                  />
+                </div>
+              </Link>
+            )}
+          </ul>
         </div>
       </div>
     </div>

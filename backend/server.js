@@ -41,6 +41,11 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/notifications", notifRoutes);
+app.get("/test", (req, res) => {
+  res.status(200).json({
+    message: "Backend Working fine",
+  });
+});
 
 app.listen(PORT, () => {
   console.log("server running bitches");

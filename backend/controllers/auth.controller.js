@@ -93,9 +93,16 @@ export const login = async (req, res) => {
   }
 };
 
+//------------------------logOut----------------------------------------
+
 export const logout = (req, res) => {
   try {
-    res.cookie("jwt", "", { maxAge: 0 });
+    res.cookie("jwt", "", {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+      expires: new Date(0), //better than maxAge?
+    });
     res.status(200).json({
       message: "Logget out Done",
     });
