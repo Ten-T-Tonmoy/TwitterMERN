@@ -53,7 +53,7 @@ const Leftbar = () => {
   //damn gonna do the same fetchings?
 
   return (
-    <div className="md:flex-[2_2_0] max-w-[13%] lg:w-96 sm:max-w-52  ">
+    <div className="md:flex-[2_2_0] max-w-[13%] lg:w-96 sm:max-w-52  relative z-10">
       <div
         className="sticky md:justify-start m-0 p-0 top-0 left-0 h-screen justify-start
     flex flex-col border-r border-gray-700  md:w-full "
@@ -162,9 +162,10 @@ const Leftbar = () => {
             </div>
           </ul>
 
+          {/* profilesec */}
           {authenticated && (
             <Link
-              className="inline-block mt-28 "
+              className="inline-block mt-20"
               // to={`/profile/${authenticated?.username}`}
             >
               {/* profile section */}

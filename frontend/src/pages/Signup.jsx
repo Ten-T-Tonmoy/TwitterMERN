@@ -6,6 +6,8 @@ import axios from "axios";
 
 import CrownSvg from "../components/Crown";
 import Crown2Svg from "../components/Crown2";
+import { IoKeyOutline } from "react-icons/io5";
+import { LuCrown } from "react-icons/lu";
 
 import { MdOutlineMail } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
@@ -87,94 +89,111 @@ const Signup = () => {
     mutate(formInfo);
   };
   return (
-    <div className="max-w-screen-xl mx-auto flex h-screen px-10">
-      <div className="flex-1 mx-5 hidden lg:flex items-center justify-center">
-        <CrownSvg className="lg:w-[30vw] " />
-      </div>
-      <div
-        className="flex flex-col flex-wrap 
-	  items-center justify-center "
-      >
-        <Crown2Svg className="lg:hidden w-[100px] mb-2" />
-        {/* Input form starts here */}
-        <form
-          className="mx-auto lg:w-[30vw] flex-col gap-4 flex"
-          onSubmit={handleSubmit}
-        >
-          <h1
-            className="text-4xl text-white font-extrabold
-		   "
-          >
-            Join Today .
-          </h1>
-          <label className="input rounded-md input-bordered flex items-center gap-2">
-            <MdOutlineMail className="text-white" />
-            <input
-              type="text"
-              className="grow"
-              placeholder="Email"
-              name="email"
-              value={formInfo.email}
-              onChange={handleInputs}
-            />
-          </label>
-          <label className="input rounded-md  input-bordered flex items-center gap-2">
-            <FaUser className="text-white" />
-            <input
-              type="text"
-              name="fullname"
-              className="grow"
-              placeholder="Full name"
-              value={formInfo.fullname}
-              onChange={handleInputs}
-            />
-          </label>
-          <label className="input rounded-md  input-bordered flex items-center gap-2">
-            <MdDriveFileRenameOutline className="text-white" />
-            <input
-              type="text"
-              name="username"
-              className="grow"
-              placeholder="Username"
-              value={formInfo.username}
-              onChange={handleInputs}
-            />
-          </label>
-          <label className="input input-bordered rounded-md flex items-center gap-2">
-            <MdPassword className="text-white" />
-            <input
-              type="password"
-              name="password"
-              className="grow"
-              placeholder="password"
-              value={formInfo.password}
-              onChange={handleInputs}
-            />
-          </label>
-          <button
-            className="btn rounded-full btn-primary
-			  text-white w-full"
-          >
-            {isPending ? "Loading..." : "Sign up"}
-          </button>
-          {isError && <p className="text-red-500 ">{error.message}</p>}
-        </form>
-        <div className="flex flex-col flex-wrap  gap-2 mt-4">
-          <p
-            className="text-white 
-		  text-lg"
-          >
-            Already have an account?
-          </p>
-          <Link to="/login">
-            <button
-              className="btn rounded-full text-white btn-primary
-			  btn-outline w-full  "
-            >
-              Sign in
-            </button>
-          </Link>
+    <div className="w-[100vw] h-screen flex flex-col pb-1">
+      <div className="max-w-screen-xl mx-auto flex h-[95vh]  px-10">
+        <div className="flex-1 mx-5 hidden lg:flex items-center justify-center">
+          <CrownSvg className="lg:w-[30vw] " />
         </div>
+        <div
+          className="flex flex-col flex-wrap 
+        items-center justify-center "
+        >
+          <Crown2Svg className="lg:hidden w-[100px] mb-2" />
+          {/* Input form starts here */}
+          <form
+            className="mx-auto lg:w-[30vw] flex-col gap-4 flex"
+            onSubmit={handleSubmit}
+          >
+            <h1
+              className="text-4xl text-white font-extrabold
+            "
+            >
+              Join Today .
+            </h1>
+            <label className="input rounded-md input-bordered flex items-center gap-2">
+              <MdOutlineMail className="text-white" />
+              <input
+                type="text"
+                className="grow"
+                placeholder="Email"
+                name="email"
+                value={formInfo.email}
+                onChange={handleInputs}
+              />
+            </label>
+            <label className="input rounded-md  input-bordered flex items-center gap-2">
+              <FaUser className="text-white" />
+              <input
+                type="text"
+                name="fullname"
+                className="grow"
+                placeholder="Full name"
+                value={formInfo.fullname}
+                onChange={handleInputs}
+              />
+            </label>
+            <label className="input rounded-md  input-bordered flex items-center gap-2">
+              <MdDriveFileRenameOutline className="text-white" />
+              <input
+                type="text"
+                name="username"
+                className="grow"
+                placeholder="Username"
+                value={formInfo.username}
+                onChange={handleInputs}
+              />
+            </label>
+            <label className="input input-bordered rounded-md flex items-center gap-2">
+              <IoKeyOutline className="text-white" />
+              <input
+                type="password"
+                name="password"
+                className="grow"
+                placeholder="password"
+                value={formInfo.password}
+                onChange={handleInputs}
+              />
+            </label>
+            <button
+              className="btn rounded-full btn-primary
+            text-white w-full"
+            >
+              {isPending ? "Loading..." : "Sign up"}
+            </button>
+          </form>
+          <div className="flex flex-col flex-wrap  gap-2 mt-4">
+            <p
+              className="text-gray-400
+            text-lg"
+            >
+              Already have an account?
+            </p>
+            <Link to="/login">
+              <button
+                className="btn rounded-full text-primary border-primary
+              w-full hover:text-white hover:bg-primary "
+              >
+                Sign in
+              </button>
+            </Link>
+          </div>
+          {isError ? (
+            <p className="text-red-500 ">{error.message}</p>
+          ) : (
+            <p className="text-black">pholder</p>
+          )}
+        </div>
+      </div>
+      {/* small footer  */}
+      <div
+        className="text-gray-400/50  justify-center flex flex-col md:flex-row md:gap-1
+      text-[.9rem] items-center"
+      >
+        Deisgined inspired from X & programmed by
+        <span className="text-primary font-bold ">FH Tonmoy </span>
+        <p className="flex items-center gap-1">
+          ©2025 . XCROWN <LuCrown className="text-white inline" />
+        </p>
       </div>
     </div>
   );

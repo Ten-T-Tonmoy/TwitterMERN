@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import userDefaultImage from "../assets/images/user.png";
 import { FaRegUserCircle } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
+import { MdOutlineSettings } from "react-icons/md";
+import { FaCircleUser } from "react-icons/fa6";
 
 const ProfileSection = ({
   user = {
@@ -89,41 +92,44 @@ const ProfileSection = ({
       {isMenuOpen && (
         <div
           className="absolute bottom-16 left-0 w-64 bg-black border
-         border-gray-700 rounded-xl shadow-lg py-2 z-50 "
+         border-gray-700 rounded-xl shadow-lg font-bold text-[.9rem] py-2 z-50 "
         >
-          <div className="px-4 py-3 border-b  border-gray-700 flex justify-between">
-            <p className="font-bold text-white">{user.fullname}</p>
-            <p className="text-gray-500">{"@" + user.username}</p>
+          <div className="px-4 py-3 border-b w-full bg-black  border-gray-700 flex justify-between">
+            <p className="font-bold text-white text-[1rem]">{user.fullname}</p>
+            <p className="text-gray-500 font-semibold">{"@" + user.username}</p>
           </div>
 
           <button
-            className="w-full text-left px-4 py-3 cursor-pointer
-             hover:bg-secondary transition-colors duration-200"
+            className="w-full text-left px-4 py-3 cursor-pointer flex items-center justify-between
+             hover:bg-secondary  transition-colors duration-200"
             onClick={() => {
               navigate(`/profile/${user.username.substring(1)}`);
               setIsMenuOpen(false);
             }}
           >
             Profile
+            <FaCircleUser className="text-[1.5rem]" />
           </button>
 
           <button
             className="w-full text-left px-4 py-3 hover:bg-secondary
-            cursor-pointer transition-colors duration-200"
+            cursor-pointer transition-colors duration-200 flex items-center justify-between"
             onClick={() => {
               navigate("/settings");
               setIsMenuOpen(false);
             }}
           >
             Settings
+            <MdOutlineSettings className="text-[1.5rem]" />
           </button>
 
           <button
-            className="w-full text-left px-4 py-3 text-red-500
+            className="w-full text-left px-4 py-3 text-red-500 flex items-center justify-between
             cursor-pointer hover:bg-secondary transition-colors duration-200"
             onClick={handleLogout}
           >
             Log out
+            <MdLogout className="text-[1.4rem]" />
           </button>
         </div>
       )}

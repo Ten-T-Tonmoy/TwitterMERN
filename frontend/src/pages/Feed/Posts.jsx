@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { MdDoNotDisturbAlt } from "react-icons/md";
 import PostCard from "./Post";
+import LoadingSpin from "../../components/normal/LoadingSpin";
 
 /**
  * foruser
@@ -25,7 +26,7 @@ const Posts = ({ feedtype, username, userId }) => {
           ? "/api/posts/following"
           : `${import.meta.env.VITE_API_BASE_URL}/api/posts/following`;
       case "allposts":
-        return `api/posts/user/${username}`;
+        return `/api/posts/user/${username}`;
       default:
         return isDev
           ? "/api/posts/all"
@@ -66,7 +67,9 @@ const Posts = ({ feedtype, username, userId }) => {
   return (
     <>
       {(isloading || isRefetching) && (
-        <div className="flex flex-col justify-center"></div>
+        <div className="flex flex-col w-full items-center justify-center">
+          <LoadingSpin />
+        </div>
       )}
       {!isloading && !isRefetching && posts?.length === 0 && (
         <p className="text-center my-4 text-white/70 ">
@@ -76,7 +79,7 @@ const Posts = ({ feedtype, username, userId }) => {
       )}
 
       {!isloading && !isRefetching && posts && (
-        <div>
+        <div className="">
           {posts.map((post) => (
             <PostCard key={post._id} post={post} />
           ))}

@@ -71,7 +71,7 @@ const Homepage = () => {
             </div>
           </div>
           {/* newsFeed section */}
-          <div className="overflow-y-scroll w-full hide-scrollbar h-full">
+          <div className="overflow-y-scroll w-full  hide-scrollbar h-full">
             <CreatePost />
             <Posts postType={type} />
           </div>
