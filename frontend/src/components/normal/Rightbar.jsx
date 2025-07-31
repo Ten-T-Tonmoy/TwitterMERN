@@ -7,7 +7,7 @@ import { RiMoreLine } from "react-icons/ri";
 
 const Rightbar = () => {
   return (
-    <div className="w-64 mr-[80px] hidden md:block">
+    <div className="w-64 mr-[80px]   hidden lg:block">
       {/*  search Part */}
       <div className="fixed h-14 bg-black">
         <label

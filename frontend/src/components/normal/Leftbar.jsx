@@ -54,13 +54,13 @@ const Leftbar = () => {
   //damn gonna do the same fetchings?
 
   return (
-    <div className="md:flex-[2_2_0] max-w-[13%] lg:w-96 sm:max-w-52  relative z-10">
+    <div className="md:flex-[2_2_0] max-w-[13%] lg:w-96 sm:max-w-80  relative z-10">
       <div
         className="sticky md:justify-start m-0 p-0 top-0 left-0 h-screen justify-start
     flex flex-col border-r border-gray-700  md:w-full "
       >
         <div className="xl:mr-[80px] ">
-          <Link to="/" className="pl-2 pt-2 flex  md:justify-start">
+          <Link to="/" className="sm:pl-2  py-3 flex  md:justify-start">
             {/* <Crown2Svg className="px-2  w-12 h-12 rounded-full hover:bg-stone-900" /> */}
             <LuCrown className=" mx-auto w-9 h-9 md:scale-125 md:mx-0" />
           </Link>
@@ -138,7 +138,7 @@ const Leftbar = () => {
               </Link>
             </li>
 
-            {/** USer Icon */}
+            {/** USer Icon or pfp */}
             <li className="flex justify-center md:justify-start">
               <Link
                 to={`/profile/${authenticated?.username}`}
@@ -166,11 +166,11 @@ const Leftbar = () => {
           {/* profilesec */}
           {authenticated && (
             <Link
-              className="inline-block mt-20"
+              className="inline-block mt-16"
               // to={`/profile/${authenticated?.username}`}
             >
               {/* profile section */}
-              <div className="mt-auto mb-4 px-3 ">
+              <div className="mt-auto mb-4 px-2 ">
                 <ProfileSection
                   logout={logout}
                   user={{

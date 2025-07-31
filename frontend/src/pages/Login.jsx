@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 import CrownSvg from "../components/Crown";
 import Crown2Svg from "../components/Crown2";
@@ -18,6 +19,7 @@ const Login = () => {
   });
   const queryClient = useQueryClient();
   const isDev = import.meta.env.MODE === "development";
+  const navigate = useNavigate();
 
   const {
     mutate: mutateLogin,
@@ -28,18 +30,24 @@ const Login = () => {
   } = useMutation({
     mutationFn: async ({ username, password }) => {
       try {
-        const { data } = await axios.post(
+        const res = await fetch(
           isDev
             ? "/api/auth/login"
             : `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`,
           {
-            username,
-            password,
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+            credentials: "include",
           }
         );
-        console.log(`${data.username} logged in`);
-        //if resp used then resp.data.username
-        return data;
+
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || "Login failed");
+        }
+
+        return await res.json();
       } catch (error) {
         throw new Error(error);
       }
@@ -48,6 +56,7 @@ const Login = () => {
     onSuccess: () => {
       toast.success("Logged in Successfully");
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
+      navigate("/");
     },
   });
 

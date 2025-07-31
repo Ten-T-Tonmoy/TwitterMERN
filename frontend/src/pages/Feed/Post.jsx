@@ -78,7 +78,7 @@ const PostCard = ({ post }) => {
          *     | icons
          *     |border-b
          */}
-        <div className="w-[90%]">
+        <div className="w-[85%] sm:w-[90%]">
           <div className="flex items-center ">
             <p className="font-bold ">{post.user.fullname}</p>
             <RiVerifiedBadgeFill className="text-primary text-lg mx-1" />
@@ -93,7 +93,7 @@ const PostCard = ({ post }) => {
 
           {/* content */}
           <div
-            className="max-w-[95%] text-white pt-1 pb-3
+            className="max-w-[85%] sm:max-w-[90%] text-white pt-1 pb-3
            text-[1.1rem] whitespace-pre-line"
           >
             {post.text}
@@ -112,7 +112,7 @@ const PostCard = ({ post }) => {
 
           {/* bottomBar */}
 
-          <div className="flex max-w-[95%] justify-between pt-2 items-center text-white/70">
+          <div className="flex max-w-[85%] sm:max-w-[90%] justify-between pt-2 items-center text-white/70">
             <div className="flex justify-center items-center">
               <GoComment
                 className="  p-3 text-[45px] hover:text-primary hover:bg-primary/20

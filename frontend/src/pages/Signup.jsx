@@ -26,7 +26,7 @@ const Signup = () => {
   const isDev = import.meta.env.MODE === "development";
 
   //ignore this shiii
-  const oldFashionedFunc = async ({ email, username, fullname, password }) => {
+  const signUpFn = async ({ email, username, fullname, password }) => {
     try {
       const resp = await fetch(
         isDev ? "/api/auth/signup" : `${import.meta.env.VITE_API_BASE_URL}`,
@@ -55,21 +55,7 @@ const Signup = () => {
   };
 
   const { mutate, isError, isPending, error } = useMutation({
-    mutationFn: async ({ email, username, fullname, password }) => {
-      try {
-        const { data } = await axios.post("/api/auth/signup", {
-          email,
-          username,
-          fullname,
-          password,
-        });
-        console.log(data);
-        return data;
-      } catch (error) {
-        console.error(error);
-        throw error;
-      }
-    },
+    mutationFn: signUpFn,
 
     onSuccess: () => {
       toast.success("Account registered Successfully");
