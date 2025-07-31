@@ -16,6 +16,7 @@ const Login = () => {
     password: "",
   });
   const queryClient = useQueryClient();
+  const isDev = import.meta.env.MODE === "development";
 
   const {
     mutate: mutateLogin,
@@ -26,10 +27,15 @@ const Login = () => {
   } = useMutation({
     mutationFn: async ({ username, password }) => {
       try {
-        const { data } = await axios.post("/api/auth/login", {
-          username,
-          password,
-        });
+        const { data } = await axios.post(
+          isDev
+            ? "/api/auth/login"
+            : `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`,
+          {
+            username,
+            password,
+          }
+        );
         console.log(`${data.username} logged in`);
         //if resp used then resp.data.username
         return data;
