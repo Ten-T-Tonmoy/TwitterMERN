@@ -90,7 +90,13 @@ const CreatePost = () => {
        *    ----------------------------------
        *  img gif groak emoji location    post
        */}
-      <div className="w-10  p-3 h-10 rounded-full bg-primary "> </div>
+      {/* <div className="w-10  p-3 h-10 rounded-full bg-primary "> </div> */}
+
+      <img
+        src={authUser?.profileImg || "/defaultuser.png"}
+        alt="pfp"
+        className="w-10 rounded-full h-10 "
+      />
       <form className="w-[83%] sm:w-[90%] " onSubmit={handleSubmit}>
         <div
           className="flex justify-start items-center text-primary border-white/30
@@ -127,7 +133,8 @@ const CreatePost = () => {
         )}
         {/* icons section  */}
         <div
-          className="flex justify-between px-2 pt-2 items-center w-full border-t
+          className="flex justify-between px-2 pt-2 items-center max-w-[93%]
+           sm:max-w-full border-t
          border-gray-800"
         >
           <div className=" flex  justify-start gap-1">

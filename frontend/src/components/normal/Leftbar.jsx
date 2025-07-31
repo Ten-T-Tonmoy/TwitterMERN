@@ -72,7 +72,7 @@ const Leftbar = () => {
 
           {/* the goddamn icons >>>>>>>>>>>>> */}
 
-          <ul className="flex flex-col w-full justify-between h-[85vh] mt-2">
+          <ul className="flex flex-col w-full justify-start gap-3 h-[80vh] mt-2">
             {/** home icon */}
             <li className="flex justify-center md:justify-start ">
               <Link
@@ -169,27 +169,26 @@ const Leftbar = () => {
                 <FaFeatherAlt className=" md:hidden text-[1.6rem]" />
               </button>
             </div>
-
-            {/* profilesec >>>>>>>>>>>>>>>>>>>>>>>>>> */}
-            {authenticated && (
-              <Link
-                className="inline-block "
-                // to={`/profile/${authenticated?.username}`}
-              >
-                {/* profile section */}
-                <div className=" px-1 sm:px-2 ">
-                  <ProfileSection
-                    logout={logout}
-                    user={{
-                      fullname: authenticated.fullname,
-                      username: authenticated.username,
-                      profileImg: authenticated.profileImg,
-                    }}
-                  />
-                </div>
-              </Link>
-            )}
           </ul>
+          {/* profilesec >>>>>>>>>>>>>>>>>>>>>>>>>> */}
+          {authenticated && (
+            <Link
+              className="inline-block mb-2 "
+              // to={`/profile/${authenticated?.username}`}
+            >
+              {/* profile section */}
+              <div className=" px-1 sm:px-2 ">
+                <ProfileSection
+                  logout={logout}
+                  user={{
+                    fullname: authenticated.fullname,
+                    username: authenticated.username,
+                    profileImg: authenticated.profileImg,
+                  }}
+                />
+              </div>
+            </Link>
+          )}
         </div>
       </div>
     </div>

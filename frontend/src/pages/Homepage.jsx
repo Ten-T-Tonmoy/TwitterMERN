@@ -8,7 +8,7 @@ const Homepage = () => {
   return (
     <>
       <div
-        className=" relative overflow-x-clip  mr-auto border-r w-[87%] sm:w-full
+        className="flex-[4_4_auto] relative overflow-x-clip  mr-auto border-r w-[87%] sm:w-full
         border-gray-700 min-h-screen"
       >
         {/*header topbar? */}
@@ -71,7 +71,7 @@ const Homepage = () => {
             </div>
           </div>
           {/* newsFeed section */}
-          <div className="overflow-y-scroll w-full  hide-scrollbar h-full">
+          <div className="overflow-y-scroll w-full hide-scrollbar h-full">
             <CreatePost />
             <Posts postType={type} />
           </div>

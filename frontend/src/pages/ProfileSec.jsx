@@ -53,19 +53,13 @@ const ProfileSection = ({
          hover:bg-secondary transition-colors duration-200"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
-        {user.profileImg ? (
-          <img
-            src={user.profileImg}
-            alt="Profile"
-            className={` w-14 rounded-full object-cover
-            ${user.profileImg ? "" : "bg-white"}`}
-          />
-        ) : (
-          <FaRegUserCircle
-            className="text-white text-[2.8rem] md:text-[3.2rem] md:mx-0 mx-auto
-          "
-          />
-        )}
+        <img
+          src={user.profileImg || "/defaultuser.png"}
+          alt="user pfp"
+          className={` w-12 rounded-full object-cover
+          `}
+        />
+
         <div className="ml-3 hidden md:block">
           <p className="font-bold text-sm whitespace-nowrap">{user.fullname}</p>
           <p className="text-gray-500 text-sm">{"@" + user.username}</p>

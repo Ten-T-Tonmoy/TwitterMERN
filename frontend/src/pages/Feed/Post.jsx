@@ -46,13 +46,19 @@ const PostCard = ({ post }) => {
   //more option and popup
   const [moreOpen, setMoreOpen] = useState(false);
   const [surePopUpOpen, setSurePopUpOpen] = useState(false);
+  const isDev = import.meta.env.MODE === "development";
 
   const deletePostFn = async () => {
     try {
-      const res = await fetch(`api/posts/${post._id}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      const res = await fetch(
+        isDev
+          ? `api/posts/${post._id}`
+          : `${import.meta.env.VITE_API_BASE_URL}/api/posts/${post._id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.Error || "error occured while deleting");
@@ -78,6 +84,7 @@ const PostCard = ({ post }) => {
     setSurePopUpOpen(false);
   };
 
+  const profileUrl = `/profile/${post.user?.username}`;
   return (
     <>
       <div
@@ -86,11 +93,11 @@ const PostCard = ({ post }) => {
       >
         {surePopUpOpen && (
           <div
-            className="fixed top-0 left-0 h-screen
+            className="fixed top-0 left-0 h-screen items-center flex justify-center
            w-screen bg-black  bg-opacity-[90%] z-[100]"
           >
             <div
-              className="fixed top-1/2 left-[25vw] md:left-[42vw] w-72 bg-black border
+              className=" w-72 bg-black border
             border-gray-700 rounded-xl shadow-lg font-bold text-[1rem] py-2 z-50 "
             >
               <p className=" text-white text-center py-2">Are you sure ?</p>
@@ -118,13 +125,19 @@ const PostCard = ({ post }) => {
 
         {/* main post part >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
 
-        <div
+        {/* <div
           className="flex gap-2 items-start h-10 w-10 rounded-full 
           bg-primary border-gray-700"
         >
-          {/** avatar later */}
-          <Link></Link>
-        </div>
+        </div> */}
+        {/** avatar later */}
+        <Link to={`${profileUrl}`}>
+          <img
+            src={post.user?.profileImg || "/defaultuser.png"}
+            alt="pfp"
+            className="w-10 rounded-full h-10 mt-2"
+          />
+        </Link>
 
         {/* main post card here */}
         {/**
