@@ -109,7 +109,7 @@ const PostCard = ({ post }) => {
 
           {/* bottomBar */}
 
-          <div className="flex max-w-[95%] justify-around pt-2 items-center text-white/70">
+          <div className="flex max-w-[95%] justify-between pt-2 items-center text-white/70">
             <div className="flex justify-center items-center">
               <GoComment
                 className="  p-3 text-[45px] hover:text-primary hover:bg-primary/20

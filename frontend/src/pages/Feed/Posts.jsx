@@ -12,16 +12,24 @@ import PostCard from "./Post";
  * username is for profile based posts?
  */
 const Posts = ({ feedtype, username, userId }) => {
+  const isDev = import.meta.env.MODE === "development";
+
   const postEndpoint = () => {
     switch (feedtype) {
       case "foruser":
-        return "api/posts/all";
+        return isDev
+          ? "/api/posts/all"
+          : `${import.meta.env.VITE_API_BASE_URL}/api/posts/all`;
       case "following":
-        return "api/posts/following";
+        return isDev
+          ? "/api/posts/following"
+          : `${import.meta.env.VITE_API_BASE_URL}/api/posts/following`;
       case "allposts":
         return `api/posts/user/${username}`;
       default:
-        return "api/posts/all";
+        return isDev
+          ? "/api/posts/all"
+          : `${import.meta.env.VITE_API_BASE_URL}/api/posts/all`;
     }
   };
 

@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 import Crown2Svg from "../Crown2";
+import { LuCrown } from "react-icons/lu";
 import { IoSearchSharp } from "react-icons/io5";
 import { GoHome } from "react-icons/go";
 import { IoNotifications } from "react-icons/io5";
@@ -17,14 +18,18 @@ import { FaFeatherAlt } from "react-icons/fa";
 
 import ProfileSection from "../../pages/ProfileSec";
 
-
 const Leftbar = () => {
   const queryClient = useQueryClient();
+  const isDev = import.meta.env.MODE === "development";
 
   const { mutate: logout } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await axios.post("/api/auth/logout");
+        const res = await axios.post(
+          isDev
+            ? "/api/auth/logout"
+            : `${import.meta.env.VITE_API_BASE_URL}/api/auth/logout`
+        );
         if (res.status !== 200) {
           throw new Error(res.error || "Shit happened while trying to logOut");
         }
@@ -35,7 +40,6 @@ const Leftbar = () => {
     },
     onSuccess: () => {
       toast.success("Logged out Successfully");
-
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
     },
 
@@ -45,19 +49,21 @@ const Leftbar = () => {
   });
 
   const { data: authenticated } = useQuery({ queryKey: ["authUser"] });
+  // console.log("This is for leftbar", authenticated);
   //damn gonna do the same fetchings?
 
   return (
-    <div className="md:flex-[2_2_0] lg:w-96 max-w-52 ">
+    <div className="md:flex-[2_2_0] max-w-[13%] lg:w-96 sm:max-w-52  ">
       <div
         className="sticky md:justify-start m-0 p-0 top-0 left-0 h-screen justify-start
     flex flex-col border-r border-gray-700  md:w-full "
       >
         <div className="xl:mr-[80px] ">
           <Link to="/" className="pl-2 pt-2 flex  md:justify-start">
-            <Crown2Svg className="px-2  w-12 h-12 rounded-full hover:bg-stone-900" />
+            {/* <Crown2Svg className="px-2  w-12 h-12 rounded-full hover:bg-stone-900" /> */}
+            <LuCrown className=" mx-auto w-9 h-9 md:scale-125 md:mx-0" />
           </Link>
-          <ul className="flex flex-col gap-2 mt-2">
+          <ul className="flex flex-col w-full gap-2 mt-2">
             {/** home icon */}
             <li className="flex justify-center md:justify-start ">
               <Link
@@ -134,7 +140,7 @@ const Leftbar = () => {
             {/** USer Icon */}
             <li className="flex justify-center md:justify-start">
               <Link
-                to={`/profile/${authenticated?.username}`}
+                to={`/profile/${authenticated?.data.username}`}
                 className="flex gap-2 
             items-center hover:bg-stone-900 transition-all rounded-full
             duration-300 py-2 pl-2 pr-2  cursor-pointer "
@@ -158,16 +164,17 @@ const Leftbar = () => {
 
           {authenticated && (
             <Link
-              className="inline-block mt-28"
-              to={`/profile/${authenticated?.username}`}
+              className="inline-block mt-28 "
+              // to={`/profile/${authenticated?.username}`}
             >
               {/* profile section */}
-              <div className="mt-auto mb-4 px-3">
+              <div className="mt-auto mb-4 px-3 ">
                 <ProfileSection
+                  logout={logout}
                   user={{
-                    name: authenticated?.username,
-                    username: "@johndoe",
-                    avatar: "/api/placeholder/40/40",
+                    fullname: authenticated.data.fullname,
+                    username: authenticated.data.username,
+                    profileImg: authenticated.data.profileImg,
                   }}
                 />
               </div>

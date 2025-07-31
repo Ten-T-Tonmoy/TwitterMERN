@@ -17,14 +17,21 @@ const CreatePost = () => {
   const imgRef = useRef(null);
 
   const createPostFn = async ({ text, img }) => {
+    const isDev = import.meta.env.MODE === "development";
+
     try {
-      const res = await fetch("/api/posts/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text, img }), //name same mind it
-      });
+      const res = await fetch(
+        isDev
+          ? "/api/posts/create"
+          : `${import.meta.env.VITE_API_BASE_URL}/api/posts/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text, img }), //name same mind it
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) {

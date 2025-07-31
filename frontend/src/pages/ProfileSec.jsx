@@ -5,11 +5,13 @@ import { FaRegUserCircle } from "react-icons/fa";
 
 const ProfileSection = ({
   user = {
-    fullname: "John Doe",
-    username: "@johndoe",
-    profileImg: "/api/placeholder/40/40",
+    fullname,
+    username,
+    profileImg,
   },
+  logout,
 }) => {
+  // console.log("Username blank why tf", user.fullname, user.username);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -30,32 +32,41 @@ const ProfileSection = ({
   }, []);
 
   const handleLogout = () => {
-    // Your logout logic here
     console.log("Logging out...");
-    // Example: localStorage.removeItem("token");
-    // Then navigate to login
-    // navigate("/login");
+    logout();
     setIsMenuOpen(false);
+    setTimeout(() => {
+      window.location.reload();
+      //instant hit suks
+    }, 200);
   };
 
   return (
     <div className="relative" ref={menuRef}>
-      {/* Profile button that toggles the menu */}
+      {/* pfp icon to trigger huh */}
       <button
-        className="flex items-center w-full md:p-3 mt-auto rounded-full hover:bg-secondary transition-colors duration-200"
+        className="flex items-center  w-full md:p-3 mt-auto rounded-full
+         hover:bg-secondary transition-colors duration-200"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
-        <img
-          src={user.profileImg ? user.profileImg : userDefaultImage}
-          alt="Profile"
-          className={` w-14 rounded-full object-cover
+        {user.profileImg ? (
+          <img
+            src={user.profileImg}
+            alt="Profile"
+            className={` w-14 rounded-full object-cover
             ${user.profileImg ? "" : "bg-white"}`}
-        />
+          />
+        ) : (
+          <FaRegUserCircle
+            className="text-white text-[2.8rem] md:text-[3.2rem] md:mx-0 mx-auto
+          "
+          />
+        )}
         <div className="ml-3 hidden md:block">
-          <p className="font-bold text-sm">{user.name}</p>
-          <p className="text-gray-500 text-sm">{user.username}</p>
+          <p className="font-bold text-sm whitespace-nowrap">{user.fullname}</p>
+          <p className="text-gray-500 text-sm">{"@" + user.username}</p>
         </div>
-        <div className="ml-auto hidden md:block">
+        <div className="ml-auto hidden md:block px-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -74,16 +85,20 @@ const ProfileSection = ({
         </div>
       </button>
 
-      {/* Dropdown menu */}
+      {/* pop up menu>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
       {isMenuOpen && (
-        <div className="absolute bottom-16 left-0 w-64 bg-black border border-gray-700 rounded-xl shadow-lg py-2 z-50">
-          <div className="px-4 py-3 border-b border-gray-700">
-            <p className="font-bold">{user.name}</p>
-            <p className="text-gray-500">{user.username}</p>
+        <div
+          className="absolute bottom-16 left-0 w-64 bg-black border
+         border-gray-700 rounded-xl shadow-lg py-2 z-50 "
+        >
+          <div className="px-4 py-3 border-b  border-gray-700 flex justify-between">
+            <p className="font-bold text-white">{user.fullname}</p>
+            <p className="text-gray-500">{"@" + user.username}</p>
           </div>
 
           <button
-            className="w-full text-left px-4 py-3 hover:bg-secondary transition-colors duration-200"
+            className="w-full text-left px-4 py-3 cursor-pointer
+             hover:bg-secondary transition-colors duration-200"
             onClick={() => {
               navigate(`/profile/${user.username.substring(1)}`);
               setIsMenuOpen(false);
@@ -93,7 +108,8 @@ const ProfileSection = ({
           </button>
 
           <button
-            className="w-full text-left px-4 py-3 hover:bg-secondary transition-colors duration-200"
+            className="w-full text-left px-4 py-3 hover:bg-secondary
+            cursor-pointer transition-colors duration-200"
             onClick={() => {
               navigate("/settings");
               setIsMenuOpen(false);
@@ -103,7 +119,8 @@ const ProfileSection = ({
           </button>
 
           <button
-            className="w-full text-left px-4 py-3 text-red-500 hover:bg-secondary transition-colors duration-200"
+            className="w-full text-left px-4 py-3 text-red-500
+            cursor-pointer hover:bg-secondary transition-colors duration-200"
             onClick={handleLogout}
           >
             Log out

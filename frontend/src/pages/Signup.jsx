@@ -21,22 +21,26 @@ const Signup = () => {
   });
 
   const queryClient = useQueryClient();
+  const isDev = import.meta.env.MODE === "development";
 
   //ignore this shiii
   const oldFashionedFunc = async ({ email, username, fullname, password }) => {
     try {
-      const resp = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          username,
-          fullname,
-          password,
-        }),
-      });
+      const resp = await fetch(
+        isDev ? "/api/auth/signup" : `${import.meta.env.VITE_API_BASE_URL}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            username,
+            fullname,
+            password,
+          }),
+        }
+      );
       //jsoing to see just not needed tho!?
       const parsedData = await resp.json();
       if (!resp.ok) {

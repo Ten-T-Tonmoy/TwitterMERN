@@ -17,11 +17,18 @@ import Rightbar from "./components/normal/Rightbar";
 
 function App() {
   //
+  const isDev = import.meta.env.MODE === "development";
+
   const { data: authenticated, isLoading } = useQuery({
     queryKey: ["authUser"], // use this query key to get the user bruh?
     queryFn: async () => {
       try {
-        const res = await axios.get("/api/auth/me");
+        const res = await axios.get(
+          isDev
+            ? "/api/auth/me"
+            : `${import.meta.env.VITE_API_BASE_URL}/api/auth/me`,
+          { withCredentials: true }
+        );
         // axios response status check
         if (res.status !== 200) {
           throw new Error(
@@ -49,7 +56,7 @@ function App() {
   //ps short note for me
   //while navigating to conditional make sure priority order is in flow
   return (
-    <div className="flex max-w-[1270px] mx-auto">
+    <div className="flex max-w-[1270px] mx-auto ">
       {authenticated && <Leftbar />}
 
       <Routes>

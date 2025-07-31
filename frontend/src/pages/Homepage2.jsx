@@ -7,7 +7,7 @@ const Homepage = () => {
   const [type, setType] = useState("for user");
 
   return (
-    <div className="flex">
+    <div className="flex ">
       {/* Left Sidebar */}
       <div className="w-20 md:w-64 fixed h-screen flex flex-col border-r border-gray-700">
         {/* Logo */}
