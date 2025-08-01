@@ -9,10 +9,11 @@ import LoadingSpin from "../../components/normal/LoadingSpin";
  * foruser
  * following
  * allposts
- *
+ *userPosts
+ *likedPosts
  * username is for profile based posts?
  */
-const Posts = ({ feedtype }) => {
+const Posts = ({ feedtype, username, userId }) => {
   const isDev = import.meta.env.MODE === "development";
 
   const postEndpoint = () => {
@@ -25,8 +26,10 @@ const Posts = ({ feedtype }) => {
         return isDev
           ? "/api/posts/following"
           : `${import.meta.env.VITE_API_BASE_URL}/api/posts/following`;
-      case "allposts":
-        return `/api/posts/user/`;
+      case "userPosts":
+        return isDev
+          ? "/api/posts/users/${username}"
+          : `${import.meta.env.VITE_API_BASE_URL}/api/posts/users/${username}`;
       default:
         return isDev
           ? "/api/posts/all"
@@ -67,7 +70,7 @@ const Posts = ({ feedtype }) => {
 
   useEffect(() => {
     refetch();
-  }, [feedtype, refetch]); //username!?
+  }, [feedtype, refetch, username]); //username!?
 
   return (
     <>

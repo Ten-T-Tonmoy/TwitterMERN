@@ -4,10 +4,10 @@ import Notification from "../models/notification.model.js";
 import User from "../models/user.model.js";
 
 //------------------------------Show Profile--------------------------------------
-export const userProfile = (req, res) => {
+export const userProfile = async (req, res) => {
   try {
     const { username } = req.params;
-    const usertoShow = User.findOne({ username }).select("-password");
+    const usertoShow = await User.findOne({ username }).select("-password");
     if (!usertoShow) {
       return res.status(404).json({
         error: "username wrong given",

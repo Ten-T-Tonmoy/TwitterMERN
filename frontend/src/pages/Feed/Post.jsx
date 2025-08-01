@@ -225,7 +225,7 @@ const PostCard = ({ post }) => {
             <img
               loading="lazy"
               className=" max-w-[95%]
-          rounded-2xl  object-cover
+          rounded-2xl sm:mx-auto object-cover
           "
               src={post.img}
               alt="post image"
@@ -234,7 +234,10 @@ const PostCard = ({ post }) => {
 
           {/* bottomBar */}
 
-          <div className="flex max-w-[85%] sm:max-w-[90%] justify-between pt-2 items-center text-white/70">
+          <div
+            className="flex max-w-[95%] gap-2 sm:max-w-[90%] justify-between
+          sm:mx-auto pt-2 items-center text-white/70"
+          >
             <div className="flex justify-center items-center">
               <GoComment
                 className="  p-3 text-[45px] hover:text-primary hover:bg-primary/20

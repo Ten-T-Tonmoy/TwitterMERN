@@ -10,6 +10,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import { IoImageOutline } from "react-icons/io5";
 import { MdOutlineGifBox } from "react-icons/md";
 import { IoCloseOutline } from "react-icons/io5";
+import LoadingSpin from "../components/normal/LoadingSpin";
 
 const CreatePost = () => {
   const [text, setText] = useState("");
@@ -133,7 +134,7 @@ const CreatePost = () => {
         )}
         {/* icons section  */}
         <div
-          className="flex justify-between px-2 pt-2 items-center max-w-[93%]
+          className="flex justify-between px-2 pt-2 items-center max-w-[90%]
            sm:max-w-full border-t
          border-gray-800"
         >
@@ -171,8 +172,9 @@ const CreatePost = () => {
           />
           <button
             type="submit"
-            className={`button bg-gray-200 text-stone-800 px-3  py-1
+            className={`button bg-gray-200 text-stone-800   py-1
               transition-all duration-300 ease-in-out
+              ${isPending ? "px-1" : "px-3"}
             ${
               text === "" && img === null
                 ? "bg-white/40 cursor-default"
@@ -181,7 +183,7 @@ const CreatePost = () => {
             rounded-3xl text-lg font-semibold
             `}
           >
-            {isPending ? "Posting..." : "Post"}
+            {isPending ? <LoadingSpin /> : "Post"}
           </button>
         </div>
         {isError && <div className="text-red-500">{error.message}</div>}

@@ -10,6 +10,12 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import { IoSearchOutline } from "react-icons/io5";
 import { memberSinceDate } from "./JoinedAtTime";
 
+import { CiLocationOn } from "react-icons/ci";
+import { SlCalender } from "react-icons/sl";
+import { GrFormNextLink } from "react-icons/gr";
+//get verified random pop advertising?
+import NotVerified from "./NotVerified";
+
 const ProfilePage = () => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
   const isDev = import.meta.env.MODE === "development";
@@ -56,6 +62,8 @@ const ProfilePage = () => {
   const memberSince = memberSinceDate(user?.createdAt);
   const isFollowedByMe = authUser.following.includes(user?._id);
 
+  // console.log("This is profile page check", user); backend unresolved promise made the fetch result undefined ! beaware
+
   useEffect(() => {
     refetch();
   }, [username, refetch]);
@@ -100,7 +108,7 @@ const ProfilePage = () => {
                 className="text-[1.4rem] font-bold flex flex-col 
                 justify-start"
               >
-                {username}
+                {user?.fullname || "name unavailable"}
                 <p className="text-[.8rem] font-normal text-gray-200/60">
                   15posts
                 </p>
@@ -152,16 +160,151 @@ const ProfilePage = () => {
                 <img
                   src={profileImg || user?.profileImg || "/defaultuser.png"}
                   alt="pfp"
-                  className=""
+                  className="cursor-pointer "
                 />
               </div>
             </div>
           </div>
+          <div className="h-14 w-full flex items-center justify-end px-4">
+            <button
+              className="border py-1 px-3  rounded-full text-white border-white
+               hover:text-black  hover:bg-white font-bold cursor-pointer duration-300
+               transition-all ease-in-out active:scale-90"
+            >
+              Edit Profile
+            </button>
+          </div>
+
+          {/* info part ------------------------------- */}
+          <div className="w-full px-5">
+            <div
+              className="text-[1.4rem] font-bold flex flex-col 
+                justify-start"
+            >
+              {user?.fullname || "name unavailable"}
+              <p className="text-[1.05rem] font-normal text-gray-200/60">
+                {"@" + username}
+              </p>
+            </div>
+
+            <p
+              className={`text-[1.1rem]  py-3 whitespace-pre-line
+                font-semibold text-gray-200
+              ${user?.bio === "" ? "" : "text-opacity-30"} `}
+            >
+              {user?.bio || "Describe about yourself ..."}
+            </p>
+            {/* // cilocation SlCalender GrFormNext RiVerfied       */}
+            <div
+              className="flex justify-start items-center py-1 gap-4 text-sm
+            font-semibold sm:text-md text-gray-200/50"
+            >
+              <div className="flex justify-center gap-1 items-center">
+                <SlCalender className="text-[1rem]" />
+                {"Joined " + (user?.createdAt || "January 2025")}
+              </div>
+              <div className="flex justify-center items-center">
+                <CiLocationOn className="text-[1.2rem]" />
+                BD , Earth
+              </div>
+            </div>
+
+            {/* followers and following  */}
+
+            <div className="flex justify-start gap-4">
+              <p
+                className={`text-[1.1rem]  py-2 whitespace-pre-line
+                font-semibold text-gray-200 `}
+              >
+                {user?.following || "00"}
+                <span className=" text-gray-200/40 font-normal">
+                  {" "}
+                  Following
+                </span>
+              </p>
+              <p
+                className={`text-[1.1rem]  py-2 whitespace-pre-line
+                font-semibold text-gray-200 `}
+              >
+                {user?.followers || "00"}
+                <span className=" text-gray-200/40 font-normal">
+                  {" "}
+                  Followers
+                </span>
+              </p>
+            </div>
+          </div>
+          <NotVerified />
+          {/**
+           * posts
+           *replies
+           *heighlits
+           * articles
+           * media
+           * */}
+          <div
+            className="flex w-full justify-start border-b border-gray-700 shadow-lg
+          mt-2"
+          >
+            <div
+              className={`flex justify-center items-center hover:bg-secondary  font-bold
+            duration-300 transition-all ease-in-out cursor-pointer relative  py-3 w-[25%]
+            ${typeOfFeed === "posts" ? "text-white" : "text-gray-200/30"} `}
+              onClick={() => setTypeOfFeed("posts")}
+            >
+              Posts
+              {typeOfFeed === "posts" && (
+                <div className="absolute bottom-0 w-12 h-1 rounded-full bg-primary"></div>
+              )}
+            </div>
+            <div
+              className={`flex justify-center items-center hover:bg-secondary  font-bold
+            duration-300 transition-all ease-in-out cursor-pointer relative  py-3 w-[25%]
+            ${
+              typeOfFeed === "likedPosts" ? "text-white" : "text-gray-200/30"
+            } `}
+              onClick={() => setTypeOfFeed("likedPosts")}
+            >
+              Replies
+              {typeOfFeed === "likedPosts" && (
+                <div className="absolute bottom-0 w-16 h-1 rounded-full bg-primary"></div>
+              )}
+            </div>
+            <div
+              className={`flex justify-center items-center hover:bg-secondary  font-bold
+            duration-300 transition-all ease-in-out cursor-pointer relative  py-3 w-[30%]
+            ${
+              typeOfFeed === "heighlights" ? "text-white" : "text-gray-200/30"
+            } `}
+              onClick={() => setTypeOfFeed("heighlights")}
+            >
+              Heighlights
+              {typeOfFeed === "heighlights" && (
+                <div className="absolute bottom-0 w-24 h-1 rounded-full bg-primary"></div>
+              )}
+            </div>
+            <div
+              className={`flex justify-center items-center hover:bg-secondary  font-bold
+            duration-300 transition-all ease-in-out cursor-pointer relative  py-3 w-[20%]
+            ${typeOfFeed === "media" ? "text-white" : "text-gray-200/30"} `}
+              onClick={() => setTypeOfFeed("media")}
+            >
+              Media
+              {typeOfFeed === "media" && (
+                <div className="absolute bottom-0 w-14 h-1 rounded-full bg-primary"></div>
+              )}
+            </div>
+          </div>
 
           {/* profile post section -----------------------------------------*/}
+
           <div className="overflow-y-scroll w-full  hide-scrollbar h-full">
-            <CreatePost />
-            <Posts postType={typeOfFeed} />
+            {/* <CreatePost /> */}
+            <Posts
+              postType={typeOfFeed}
+              username={username}
+              userId={user?._id}
+            />
           </div>
         </div>
       </div>
