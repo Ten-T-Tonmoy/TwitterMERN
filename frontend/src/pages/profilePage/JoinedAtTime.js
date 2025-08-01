@@ -18,5 +18,5 @@ export const memberSinceDate = (createdAt) => {
   const month = months[date.getMonth()];
   const year = date.getFullYear();
 
-  return `Joined at ${month},${year}`;
+  return `Joined  ${month} ${year}`;
 };

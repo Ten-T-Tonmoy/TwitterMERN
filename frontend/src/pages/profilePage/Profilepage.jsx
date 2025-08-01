@@ -110,7 +110,7 @@ const ProfilePage = () => {
               >
                 {user?.fullname || "name unavailable"}
                 <p className="text-[.8rem] font-normal text-gray-200/60">
-                  15posts
+                  {"@" + username}
                 </p>
               </div>
             </div>
@@ -201,7 +201,7 @@ const ProfilePage = () => {
             >
               <div className="flex justify-center gap-1 items-center">
                 <SlCalender className="text-[1rem]" />
-                {"Joined " + (user?.createdAt || "January 2025")}
+                {memberSince || "Joined January 2025"}
               </div>
               <div className="flex justify-center items-center">
                 <CiLocationOn className="text-[1.2rem]" />
@@ -216,7 +216,7 @@ const ProfilePage = () => {
                 className={`text-[1.1rem]  py-2 whitespace-pre-line
                 font-semibold text-gray-200 `}
               >
-                {user?.following || "00"}
+                {user?.following === 0 || "00"}
                 <span className=" text-gray-200/40 font-normal">
                   {" "}
                   Following
@@ -226,7 +226,7 @@ const ProfilePage = () => {
                 className={`text-[1.1rem]  py-2 whitespace-pre-line
                 font-semibold text-gray-200 `}
               >
-                {user?.followers || "00"}
+                {user?.followers === 0 || "00"}
                 <span className=" text-gray-200/40 font-normal">
                   {" "}
                   Followers

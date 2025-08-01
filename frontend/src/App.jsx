@@ -10,7 +10,8 @@ import LoadingSpin from "./components/normal/LoadingSpin";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotificationPage from "./pages/NotificationPage";
-import Profilepage from "./pages/profilePage/Profilepage";
+import ProfilePage from "./pages/profilePage/ProfilePage";
+import ProfileUpdate from "./pages/profilePage/ProfileUpdate";
 
 import Leftbar from "./components/normal/Leftbar";
 import Rightbar from "./components/normal/Rightbar";
@@ -73,8 +74,9 @@ function App() {
         />
         <Route
           path="/profile/:username"
-          element={authenticated ? <Profilepage /> : <Navigate to="/login" />}
+          element={authenticated ? <ProfilePage /> : <Navigate to="/login" />}
         />
+        <Route path="/profile/:username/update" element={<ProfileUpdate />} />
         <Route
           path="/notifications"
           element={
