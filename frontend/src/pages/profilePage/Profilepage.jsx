@@ -21,8 +21,6 @@ const ProfilePage = () => {
   const isDev = import.meta.env.MODE === "development";
   //prof infos
   const { username } = useParams();
-  const [coverImg, setCoverImg] = useState(null);
-  const [profileImg, setProfileImg] = useState(null);
   const [typeOfFeed, setTypeOfFeed] = useState("userPosts");
 
   const getUserProfileFn = async () => {
@@ -70,18 +68,18 @@ const ProfilePage = () => {
 
   //updating stuffs
 
-  const handleImgUpdate = (e, field) => {
-    const file = e.target.files[0];
+  // const handleImgUpdate = (e, field) => {
+  //   const file = e.target.files[0];
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        field === "coverImg" && setCoverImg(reader.result);
-        field === "profileImg" && setProfileImg(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       field === "coverImg" && setCoverImg(reader.result);
+  //       field === "profileImg" && setProfileImg(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   //--------------------------------------------------------------------------------------
   return (
@@ -148,7 +146,7 @@ const ProfilePage = () => {
             {/* cover image  */}
             <img
               className="h-44 w-full object-cover cursor-pointer"
-              src={coverImg || user?.coverImg || "/cover.png"}
+              src={user?.coverImg || "/cover.png"}
               alt="cover pic"
             />
 
@@ -158,7 +156,7 @@ const ProfilePage = () => {
             <div className="absolute avatar -bottom-14 left-6">
               <div className="w-28 rounded-full relative group/avatar">
                 <img
-                  src={profileImg || user?.profileImg || "/defaultuser.png"}
+                  src={user?.profileImg || "/defaultuser.png"}
                   alt="pfp"
                   className="cursor-pointer "
                 />
@@ -204,7 +202,7 @@ const ProfilePage = () => {
             <p
               className={`text-[1.1rem]  py-3 whitespace-pre-line
                 font-semibold text-gray-200
-              ${user?.bio === "" ? "" : "text-opacity-30"} `}
+              ${user?.bio === "" ? "text-opacity-30" : ""} `}
             >
               {user?.bio || "Describe about yourself ..."}
             </p>

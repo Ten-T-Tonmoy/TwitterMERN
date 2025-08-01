@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -12,6 +12,8 @@ import { IoMdClose } from "react-icons/io";
 import useProfileUpdate from "../../hooks/useProfileUpdater";
 
 const ProfileUpdate = () => {
+  const { data: authUser, isLoading } = useQuery({ queryKey: ["authUser"] });
+
   // fullname,
   // email,
   // username,
@@ -25,29 +27,83 @@ const ProfileUpdate = () => {
    *
    */
 
+  const { isUpdating, updateProfile } = useProfileUpdate();
   const { username } = useParams();
+
+  const [initialCoverImg, setCoverImg] = useState(null);
+  const [initialProfileImg, setProfileImg] = useState(null);
+  const coverImgRef = useRef(null);
+  const profileImgRef = useRef(null);
 
   const [updateFormData, setUpdateFormData] = useState({
     fullname: "",
-    username: "",
+    // username: "",
     email: "",
     bio: "",
     link: "",
     newPassword: "",
     currentPassword: "",
+    coverImg: "",
+    profileImg: "",
   });
 
-  const { isUpdating, updateProfile } = useProfileUpdate();
+  const handleImgUpdate = (e, field) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (field === "coverImg") {
+          setCoverImg(reader.result);
+          setUpdateFormData((prev) => ({
+            ...prev,
+            coverImg: reader.result,
+          }));
+        }
+        if (field === "profileImg") {
+          setProfileImg(reader.result);
+          setUpdateFormData((prev) => ({
+            ...prev,
+            profileImg: reader.result,
+          }));
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleChange = (e) => {
     setUpdateFormData({ ...updateFormData, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    console.log("form data to update shiit", updateFormData);
+    updateProfile(updateFormData);
+  };
 
+  useEffect(() => {
+    if (authUser) {
+      setCoverImg(authUser.coverImg);
+      setProfileImg(authUser.profileImg);
+      setUpdateFormData({
+        fullName: authUser.fullName,
+        // username: authUser.username,
+        email: authUser.email,
+        bio: authUser.bio,
+        link: authUser.link,
+        newPassword: "",
+        currentPassword: "",
+
+        // coverImg: initialCoverImg,
+        // profileImg: initialProfileImg,
+      });
+    }
+  }, [authUser]);
 
   //------------------------------------Dont put raw js below this----------------------------
 
-  const { data: authUser, isLoading } = useQuery({ queryKey: ["authUser"] });
   if (isLoading)
     return (
       <div>
@@ -89,6 +145,7 @@ const ProfileUpdate = () => {
           </div>
           {/* functionality left  */}
           <button
+            onClick={handleSubmit}
             className="border py-1 px-4 mr-4 rounded-full text-black bg-white
                hover:opacity-80 font-bold cursor-pointer duration-300
               transition-all ease-in-out active:scale-90"
@@ -103,7 +160,7 @@ const ProfileUpdate = () => {
             {/* cover image  */}
             <img
               className="h-44 w-full object-cover cursor-pointer"
-              src={authUser?.coverImg || "/cover.png"}
+              src={initialCoverImg || "/cover.png"}
               alt="cover pic"
             />
             <div
@@ -114,7 +171,17 @@ const ProfileUpdate = () => {
                 className="p-3 rounded-full 
                 bg-secondary/30 hover:bg-secondary/60 "
               >
-                <MdOutlineAddAPhoto className="text-[1.7rem] hover:text-white/80  text-white/50 cursor-pointer" />
+                <MdOutlineAddAPhoto
+                  onClick={() => coverImgRef.current.click()}
+                  className="text-[1.7rem] hover:text-white/80  text-white/50 cursor-pointer"
+                />
+                <input
+                  onChange={(e) => handleImgUpdate(e, "coverImg")}
+                  type="file"
+                  accept="image/*"
+                  hidden
+                  ref={coverImgRef}
+                />
               </div>
               <div
                 className="p-3 rounded-full 
@@ -130,7 +197,7 @@ const ProfileUpdate = () => {
             <div className="absolute avatar -bottom-14 left-6">
               <div className="w-28 rounded-full relative group/avatar">
                 <img
-                  src={authUser?.profileImg || "/defaultuser.png"}
+                  src={initialProfileImg || "/defaultuser.png"}
                   alt="pfp"
                   className="cursor-pointer relative z-10 "
                 />
@@ -142,7 +209,17 @@ const ProfileUpdate = () => {
                     className="p-3 z-20 rounded-full 
                 bg-secondary/30 hover:bg-secondary/60 "
                   >
-                    <MdOutlineAddAPhoto className="text-[1.7rem] hover:text-white/80  text-white/50 cursor-pointer" />
+                    <MdOutlineAddAPhoto
+                      onClick={() => profileImgRef.current.click()}
+                      className="text-[1.7rem] hover:text-white/80  text-white/50 cursor-pointer"
+                    />
+                    <input
+                      onChange={(e) => handleImgUpdate(e, "profileImg")}
+                      type="file"
+                      accept="image/*"
+                      hidden
+                      ref={profileImgRef}
+                    />
                   </div>
                 </div>
               </div>
