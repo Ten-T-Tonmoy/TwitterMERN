@@ -15,6 +15,7 @@ const protectRoute = async (req, res, next) => {
         error: "unauthorized token not matched",
       });
     }
+    //jwt extracted
     const decodedUser = await User.findById(decodedToken.userId).select(
       "-password"
     );

@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs"; //for hashing
 import { generateTokenAndSetCookie } from "../lib/utils/generateToken.js";
 
 //it checked data uniqueness and hashed pass
+//--------------------------------------signup----------------------------------------
 export const signUp = async (req, res) => {
   try {
     const { fullname, username, email, password } = req.body;
@@ -60,6 +61,8 @@ export const signUp = async (req, res) => {
   }
 };
 
+//--------------------------------------------login--------------------------------------------
+
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -113,9 +116,10 @@ export const logout = (req, res) => {
     });
   }
 };
-
+//----------------------------------------------getuser-------------------------------------
 export const getUser = async (req, res) => {
   try {
+    //no extraction needed cause jwt does that
     const user = await User.findById(req.user._id).select("-password");
     res.status(200).json(user);
   } catch (error) {

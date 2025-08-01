@@ -66,7 +66,7 @@ const Posts = ({ feedtype, username, userId }) => {
     queryFn: getPostsFn,
   });
 
-  console.log("This is post fn", posts);
+  // console.log("This is post fn", posts);
 
   useEffect(() => {
     refetch();

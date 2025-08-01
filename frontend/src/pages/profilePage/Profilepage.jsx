@@ -92,7 +92,7 @@ const ProfilePage = () => {
       >
         {/*header topbar? */}
         <div className="w-full border-r border-gray-700 ">
-          {/* actual navBar  */}
+          {/* nahhh  */}
           <div
             className="flex sticky justify-between top-0 bg-opacity-50 backdrop-blur-md
           bg-black/50 z-10 py-[2px] w-full border-b items-center border-gray-700"
@@ -166,13 +166,27 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className="h-14 w-full flex items-center justify-end px-4">
-            <button
-              className="border py-1 px-3  rounded-full text-white border-white
-               hover:text-black  hover:bg-white font-bold cursor-pointer duration-300
-               transition-all ease-in-out active:scale-90"
-            >
-              Edit Profile
-            </button>
+            {authUser.username !== username ? (
+              <div>
+                {/**
+                 * more mail bell
+                 * follow
+                 * following
+                 * unfollow =>are you sure!
+                 */}
+                aint u
+              </div>
+            ) : (
+              <Link to={`/profile/${username}/update`}>
+                <button
+                  className="border py-1 px-3  rounded-full text-white border-white
+              hover:text-black  hover:bg-white font-bold cursor-pointer duration-300
+              transition-all ease-in-out active:scale-90"
+                >
+                  Edit Profile
+                </button>
+              </Link>
+            )}
           </div>
 
           {/* info part ------------------------------- */}

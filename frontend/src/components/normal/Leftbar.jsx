@@ -55,7 +55,7 @@ const Leftbar = () => {
   });
 
   const { data: authenticated } = useQuery({ queryKey: ["authUser"] });
-  console.log("This is for leftbar", authenticated);
+  // console.log("This is for leftbar", authenticated);
   //damn gonna do the same fetchings?
 
   return (

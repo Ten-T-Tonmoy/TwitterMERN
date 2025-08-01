@@ -76,7 +76,10 @@ function App() {
           path="/profile/:username"
           element={authenticated ? <ProfilePage /> : <Navigate to="/login" />}
         />
-        <Route path="/profile/:username/update" element={<ProfileUpdate />} />
+        <Route
+          path="/profile/:username/update"
+          element={authenticated ? <ProfileUpdate /> : <Navigate to="/login" />}
+        />
         <Route
           path="/notifications"
           element={

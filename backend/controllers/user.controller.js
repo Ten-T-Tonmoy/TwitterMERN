@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 
 import Notification from "../models/notification.model.js";
 import User from "../models/user.model.js";
+import cloudinary from "../config/cloudinary.config.js";
 
 //------------------------------Show Profile--------------------------------------
 export const userProfile = async (req, res) => {
@@ -133,10 +134,24 @@ export const userUpdate = async (req, res) => {
 
     //cloudinary to upload and manage images!?
 
-    //fix this later
+    //image update handling
     if (coverImg) {
       if (userToUpdate.coverImg) {
+        await cloudinary.uploader.destroy(
+          user.coverImg.split("/").pop().split(".")[0]
+        );
       }
+      const imgUploadResponse = await cloudinary.uploader.upload(coverImg);
+      coverImg = imgUploadResponse.secure_url;
+    }
+    if (profileImg) {
+      if (userToUpdate.profileImg) {
+        await cloudinary.uploader.destroy(
+          user.profileImg.split("/").pop().split(".")[0]
+        );
+      }
+      const imgUploadResponse = await cloudinary.uploader.upload(profileImg);
+      profileImg = imgUploadResponse.secure_url;
     }
 
     userToUpdate.fullname = fullname || userToUpdate.fullname;
