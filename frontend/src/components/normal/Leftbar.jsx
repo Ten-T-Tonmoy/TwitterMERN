@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 
-import Crown2Svg from "../Crown2";
 import { LuCrown } from "react-icons/lu";
 import { IoSearchSharp } from "react-icons/io5";
 import { GoHome } from "react-icons/go";
+import { GoHomeFill } from "react-icons/go";
+
 import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
@@ -17,10 +17,12 @@ import { CgMoreO } from "react-icons/cg";
 import { FaFeatherAlt } from "react-icons/fa";
 
 import ProfileSection from "../../pages/ProfileSec";
+import { useState } from "react";
 
 const Leftbar = () => {
   const queryClient = useQueryClient();
   const isDev = import.meta.env.MODE === "development";
+  const [page, setPage] = useState("home");
 
   const { mutate: logout } = useMutation({
     mutationFn: async () => {
@@ -72,7 +74,7 @@ const Leftbar = () => {
 
           {/* the goddamn icons >>>>>>>>>>>>> */}
 
-          <ul className="flex flex-col w-full justify-start gap-3 h-[80vh] mt-2">
+          <ul className="flex flex-col w-full justify-start gap-4 h-[70vh] sm:h-[80vh] mt-2">
             {/** home icon */}
             <li className="flex justify-center md:justify-start ">
               <Link
@@ -81,7 +83,11 @@ const Leftbar = () => {
             items-center hover:bg-stone-900 transition-all rounded-full
             duration-300 py-2 pl-2 pr-2  cursor-pointer "
               >
-                <GoHome className="w-6 h-6 " />
+                {page === "home" ? (
+                  <GoHomeFill className="w-6 h-6 " />
+                ) : (
+                  <GoHome className="w-6 h-6 " />
+                )}
                 <span className="text-lg hidden md:block">Home</span>
               </Link>
             </li>

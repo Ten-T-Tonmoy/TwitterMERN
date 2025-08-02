@@ -48,11 +48,13 @@ const ProfileUpdate = () => {
     currentPassword: "",
     coverImg: "",
     profileImg: "",
+    _id: authUser?._id,
   });
 
   const handleImgUpdate = (e, field) => {
     const file = e.target.files[0];
 
+    //for base64 conversion cloudinary will see it no multer needed
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -98,6 +100,7 @@ const ProfileUpdate = () => {
         link: authUser.link,
         newPassword: "",
         currentPassword: "",
+        _id: authUser._id,
 
         // coverImg: initialCoverImg,
         // profileImg: initialProfileImg,
@@ -230,11 +233,11 @@ const ProfileUpdate = () => {
           {/* profile pic ends here >>>>>>>>>>>>>>>>>>>>>> */}
         </div>
         <form
-          className="overflow-y-scroll mt-16 relative z-0 w-full sm:w-2/3 
+          className="overflow-y-scroll mt-16 relative z-0 w-full sm:p-14
         p-4  hide-scrollbar min-h-screen flex flex-col gap-3"
         >
           {/* fullname editor input  */}
-          <div className="w-full h-[60px] relative mb-4">
+          <div className="w-full h-[60px] relative mb-4 ">
             <input
               type="text"
               name="fullname"

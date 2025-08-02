@@ -100,7 +100,7 @@ export const userUpdate = async (req, res) => {
     req.body;
 
   let { profileImg, coverImg } = req.body;
-  const userToUpdateId = req.user._id;
+  const userToUpdateId = req.body._id;
   try {
     let userToUpdate = await User.findById(userToUpdateId);
 
@@ -138,7 +138,7 @@ export const userUpdate = async (req, res) => {
     if (coverImg) {
       if (userToUpdate.coverImg) {
         await cloudinary.uploader.destroy(
-          user.coverImg.split("/").pop().split(".")[0]
+          userToUpdate.coverImg.split("/").pop().split(".")[0]
         );
       }
       const imgUploadResponse = await cloudinary.uploader.upload(coverImg);
@@ -147,7 +147,7 @@ export const userUpdate = async (req, res) => {
     if (profileImg) {
       if (userToUpdate.profileImg) {
         await cloudinary.uploader.destroy(
-          user.profileImg.split("/").pop().split(".")[0]
+          userToUpdate.profileImg.split("/").pop().split(".")[0]
         );
       }
       const imgUploadResponse = await cloudinary.uploader.upload(profileImg);

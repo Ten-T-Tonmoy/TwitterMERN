@@ -87,21 +87,21 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="w-full flex p-2 gap-3 border-b border-gray-800">
+    <div className="w-full flex px-2 pb-2 pt-4 gap-3 border-b border-gray-800">
       {/**
        * left photo | whats happening?
        *    ----------------------------------
        *  img gif groak emoji location    post
        */}
       {/* <div className="w-10  p-3 h-10 rounded-full bg-primary "> </div> */}
-        <Link to={`${profileUrl}`}>
-      <img
-        src={authUser?.profileImg || "/defaultuser.png"}
-        alt="pfp"
-        className="w-10 rounded-full h-10 "
+      <Link to={`${profileUrl}`}>
+        <img
+          src={authUser?.profileImg || "/defaultuser.png"}
+          alt="pfp"
+          className="w-10 rounded-full h-10 "
         />
-        </Link>
-      <form className="w-[83%] sm:w-[90%] " onSubmit={handleSubmit}>
+      </Link>
+      <form className="w-full sm:w-[90%] " onSubmit={handleSubmit}>
         <div
           className="flex justify-start items-center text-primary border-white/30
         border w-fit rounded-xl px-3 font-bold hover:bg-blue-400/10 cursor-pointer"
@@ -137,8 +137,8 @@ const CreatePost = () => {
         )}
         {/* icons section  */}
         <div
-          className="flex justify-between px-2 pt-2 items-center max-w-[90%]
-           sm:max-w-full border-t
+          className="flex justify-start sm:justify-between  pt-2 items-center max-w-[90%]
+           sm:max-w-full border-t 
          border-gray-800"
         >
           <div className=" flex  justify-start gap-1">
