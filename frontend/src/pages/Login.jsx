@@ -85,7 +85,7 @@ const Login = () => {
             className="mx-auto lg:w-[30vw] flex-col gap-4 flex"
           >
             <h1
-              className="text-4xl text-white font-extrabold
+              className="text-4xl text-white font-extrabold text-center
 		   "
             >
               Join Today .
