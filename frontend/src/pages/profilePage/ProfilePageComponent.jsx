@@ -15,7 +15,7 @@ import { SlCalender } from "react-icons/sl";
 //get verified random pop advertising?
 import NotVerified from "./NotVerified";
 
-const ProfilePage = () => {
+const ProfilePageComponent = () => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
   const isDev = import.meta.env.MODE === "development";
   //prof infos
@@ -323,4 +323,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default ProfilePageComponent;
