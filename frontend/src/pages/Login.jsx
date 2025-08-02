@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import axios from "axios";
+import LoadingSpin from "../components/normal/LoadingSpin";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -117,13 +117,14 @@ const Login = () => {
               className="btn rounded-full btn-primary
 			  text-white w-full"
             >
-              {isPending ? "Loading..." : "Log in"}
+              Log in
+              {isPending && <LoadingSpin />}
             </button>
           </form>
           <div className="flex flex-col flex-wrap  gap-2 mt-4">
             <p
-              className="text-white 
-		  text-lg"
+              className="text-white/70
+		  text-md"
             >
               {"Don't "}
               have an account?
@@ -138,7 +139,7 @@ const Login = () => {
             </Link>
           </div>
           {isError ? (
-            <p className="text-red-500 ">{error.message}</p>
+            <p className="text-red-500 text-center">{error.message}</p>
           ) : (
             <p className="text-black">pholder</p>
           )}

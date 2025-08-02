@@ -11,6 +11,7 @@ import { IoImageOutline } from "react-icons/io5";
 import { MdOutlineGifBox } from "react-icons/md";
 import { IoCloseOutline } from "react-icons/io5";
 import LoadingSpin from "../components/normal/LoadingSpin";
+import { Link } from "react-router-dom";
 
 const CreatePost = () => {
   const [text, setText] = useState("");
@@ -51,6 +52,7 @@ const CreatePost = () => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] }); //authUser.data
   // console.log("this is authUser!", authUser);
   const queryClient = useQueryClient(); //to use global state
+  const profileUrl = `/profile/${authUser?.username}`;
 
   const {
     mutate: createPost, //renamed mutate fn no needto type mutation.mutate
@@ -92,12 +94,13 @@ const CreatePost = () => {
        *  img gif groak emoji location    post
        */}
       {/* <div className="w-10  p-3 h-10 rounded-full bg-primary "> </div> */}
-
+        <Link to={`${profileUrl}`}>
       <img
         src={authUser?.profileImg || "/defaultuser.png"}
         alt="pfp"
         className="w-10 rounded-full h-10 "
-      />
+        />
+        </Link>
       <form className="w-[83%] sm:w-[90%] " onSubmit={handleSubmit}>
         <div
           className="flex justify-start items-center text-primary border-white/30

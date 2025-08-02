@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 
 import CrownSvg from "../components/Crown";
 import Crown2Svg from "../components/Crown2";
+import LoadingSpin from "../components/normal/LoadingSpin";
 import { IoKeyOutline } from "react-icons/io5";
 import { LuCrown } from "react-icons/lu";
 
 import { MdOutlineMail } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
-import { MdPassword } from "react-icons/md";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 
 const Signup = () => {
@@ -91,7 +90,7 @@ const Signup = () => {
             onSubmit={handleSubmit}
           >
             <h1
-              className="text-4xl text-white font-extrabold
+              className="text-4xl text-white font-extrabold text-center
             "
             >
               Join Today .
@@ -142,15 +141,16 @@ const Signup = () => {
             </label>
             <button
               className="btn rounded-full btn-primary
-            text-white w-full"
+            text-white text-center w-full"
             >
-              {isPending ? "Loading..." : "Sign up"}
+              Sign Up
+              {isPending && <LoadingSpin />}
             </button>
           </form>
           <div className="flex flex-col flex-wrap  gap-2 mt-4">
             <p
-              className="text-gray-400
-            text-lg"
+              className="text-gray-200/70
+            text-md"
             >
               Already have an account?
             </p>
@@ -164,7 +164,7 @@ const Signup = () => {
             </Link>
           </div>
           {isError ? (
-            <p className="text-red-500 ">{error.message}</p>
+            <p className="text-red-500 text-center">{error.message}</p>
           ) : (
             <p className="text-black">pholder</p>
           )}

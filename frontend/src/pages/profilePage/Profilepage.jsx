@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import Posts from "../Feed/Posts";
-import CreatePost from "../CreatePost";
 
 //react icons--------------------------
 import { IoArrowBackOutline } from "react-icons/io5";
@@ -12,7 +11,7 @@ import { memberSinceDate } from "./JoinedAtTime";
 
 import { CiLocationOn } from "react-icons/ci";
 import { SlCalender } from "react-icons/sl";
-import { GrFormNextLink } from "react-icons/gr";
+// import { GrFormNextLink } from "react-icons/gr";
 //get verified random pop advertising?
 import NotVerified from "./NotVerified";
 
@@ -200,8 +199,8 @@ const ProfilePage = () => {
             </div>
 
             <p
-              className={`text-[1.1rem]  py-3 whitespace-pre-line
-                font-semibold text-gray-200
+              className={`text-lg tracking-wide py-3 whitespace-pre-line 
+                 text-gray-200
               ${user?.bio === "" ? "text-opacity-30" : ""} `}
             >
               {user?.bio || "Describe about yourself ..."}
